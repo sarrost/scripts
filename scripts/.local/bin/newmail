@@ -1,5 +1,0 @@
-#! /bin/sh
-
-# TODO
-
-notify-send "Mail" "New Mail"
