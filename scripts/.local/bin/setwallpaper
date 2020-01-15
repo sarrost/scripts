@@ -1,0 +1,7 @@
+#! /bin/sh
+
+# This script sets the desktop background.
+
+#feh --randomize --bg-scale ~/Pictures/Wallpaper/sfw/
+[ ! -z "$1" ] && cp "$1" ~/.config/wall.jpg && notify-send -i "$HOME/.config/wall.jpg" "Wallpaper changed."
+xwallpaper --zoom ~/.config/wall.jpg

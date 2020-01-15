@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# This script is a wrapper to launch compton without worry of existing
+# instances.
+
+killall -q compton
+compton --config /home/sarrost/.config/compton/compton.conf & disown
+
+notify-send "✓ Compton" "Window compositor successfully launched."

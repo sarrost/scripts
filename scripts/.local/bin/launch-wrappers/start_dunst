@@ -1,0 +1,5 @@
+#! /bin/sh
+
+killall -q dunst
+dunst & disown
+notify-send "✓ Dunst" "Notification daemon successfully launched."

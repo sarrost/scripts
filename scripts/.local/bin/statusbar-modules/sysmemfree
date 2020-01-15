@@ -1,0 +1,7 @@
+#! /bin/sh
+
+# TODO
+
+free=$(free | awk '/^Mem:/ {print $7}')
+free=$(deci $free/1024/1024)
+echo $free

@@ -1,0 +1,4 @@
+#! /bin/sh
+
+herbstclient reload
+notify-send "Herbstclient" "WM successfully reloaded."

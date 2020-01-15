@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# This script houses all (basic) entr tasks.
+
+sleep 10
+
+ls ~/.config/polybar/* | entr -p statusbar & disown
+echo ~/.config/compton/compton.conf | entr -p -n start_compton & disown
+echo ~/.config/dunst/dunstrc | entr -p -n start_dunst & disown
+echo ~/.config/herbstluftwm/autostart | entr -p -n reload_herbst & disown
+echo ~/.config/sxhkd/sxhkdrc | entr -p -n start_sxhkd & disown
+echo ~/.config/aliasrc | entr -p -n scuts & disown
+echo ~/.config/files.scuts | entr -p -n scuts & disown
+echo ~/.config/dirs.scuts | entr -p -n scuts & disown
+
+while true; do
+    find $HOME/.scripts/scripts/.local/bin -type f | entr -p -d -n syncscripts hi; 
+done

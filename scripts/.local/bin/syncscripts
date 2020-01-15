@@ -1,0 +1,7 @@
+#! /bin/sh
+
+cd $HOME/.scripts/scripts/.local/
+chmod -R +x bin/
+cd $HOME/.scripts/
+stow scripts
+exit 0

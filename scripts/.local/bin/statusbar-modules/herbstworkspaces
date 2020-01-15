@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+empty=・
+nonempty=⬡
+active=
+otheractive=
+otherotheractive=♦
+other=⬢
+scratchempty=_
+scratchactive=
+scratchnonempty=
+while true; do
+    herbstclient tag_status $1 | sed \
+        's/\t/ /g; s/^ //; s/\.[0-9]\+\b/'"$empty"'/g;
+        s/\#[0-9]\+\b/'"$active"'/g;
+        s/\:[0-9]\+\b/'"$nonempty"'/g;
+        s/\-[0-9]\+\b/'"$otheractive"'/g;
+        s/\%[0-9]\+\b/'"$otherotheractive"'/g;
+        s/\+[0-9]\+\b/'"$other"'/g;
+        s/\.[[:alpha:]_]\{1,\}//g;
+        s/\#[[:alpha:]_]\{1,\}//g;
+        s/\:[[:alpha:]_]\{1,\}//g;
+        s/\-[[:alpha:]_]\{1,\}//g;
+        s/\%[[:alpha:]_]\{1,\}//g;
+        s/\+[[:alpha:]_]\{1,\}//g;'
+        #s/\.scratchpad\b/'"$scratchempty"'/g;
+        #s/\#scratchpad\b/'"$scratchactive"'/g;
+        #s/\:scratchpad\b/'"$scratchnonempty"'/g'
+done

@@ -1,0 +1,53 @@
+#! /bin/sh
+
+# default options
+extract_to_dirs='n'
+destination=$PWD
+
+# process options
+while [ -n "$1" ]; do
+    case "$1" in
+        -d) destination="$2"
+            if [[ ! -d $destination ]]; then
+                printf '%s\n' "'$destination' is not a directory" >&2
+                exit 2
+            fi
+            shift ;;
+        -D) extract_to_dirs='y' ;;
+        -*) printf '%s\n' "'$1' unrecognized option" >&2; exit 1 ;;
+        *) break ;;
+    esac
+    shift
+done
+
+# perform extraction
+if [[ $extract_to_dirs == 'y' ]]; then
+    for file in $@; do
+        if [[ -f $file ]]; then
+            case $file in 
+                *.zip) unzip $file -d $destination/$(sed 's/\.zip//g' <<< "$file");;
+                *.tar.gz)
+                    destination=$destination/$(sed 's/\.tar.gz//g' <<< "$file")
+                    if [[ ! -d destination ]]; then mkdir $destination; fi
+                    tar -xzf $file -C $destination;;
+                # *.rar) unrar x $file;;
+                *) echo "could not recognize '$file' as an archive";;
+            esac
+        else
+            echo "'$file' could not be found, nothing to do here."
+        fi
+    done
+elif [[ $extract_to_dirs == 'n' ]]; then
+    for file in $@; do
+        if [[ -f $file ]]; then
+            case $file in 
+                *.zip) unzip $file -d $destination;;
+                *.tar.gz) tar -xzf $file -C $destination;;
+                # *.rar) unrar x $file;;
+                *) echo "could not recognize '$file' as an archive";;
+            esac
+        else
+            echo "'$file' could not be found, nothing to do here."
+        fi
+    done
+fi

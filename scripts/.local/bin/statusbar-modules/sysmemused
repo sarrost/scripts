@@ -1,0 +1,7 @@
+#! /bin/sh
+
+# TODO
+
+used=$(free | awk '/^Mem:/ {print $3}')
+used=$(deci $used/1024/1024)
+echo $used

@@ -1,0 +1,8 @@
+#! /bin/sh
+
+# TODO
+
+while true; do
+    sensors | awk '/^temp1/ {print $2}' | sed 's/+//g; s/°C//g; q'
+    sleep 1
+done

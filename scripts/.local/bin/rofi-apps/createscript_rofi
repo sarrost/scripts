@@ -1,0 +1,25 @@
+#! /bin/sh
+utils_path=$HOME/.scripts/scripts/.local/bin
+files=$(du -a ~/.local/bin | awk '{print $2}' | sed 's/.*\///')
+filename=""
+filename=$(echo "$files" | rofi -dmenu -p "create script" -mesg "name must be unique, existing (custom) commands shown below")
+
+# ensure a valid name is given
+while
+    valid='true'
+    for file in $files; do
+        if [[ $file == $filename ]]; then
+            valid='false'
+            echo $filename
+        fi
+    done
+    if [[ $valid == 'false' ]]; then
+        filename=$(echo "$files" | rofi -dmenu -p "$filename already exists, please choose a new name")
+    fi
+    [[ $valid == 'false' ]]
+do :; done
+
+# create the file and give permissions
+printf "#! /bin/sh\n\n# TODO\n\n" > $utils_path/$filename
+chmod +x $utils_path/$filename
+$TERMINAL -e sh -c "$EDITOR $utils_path/$filename"
