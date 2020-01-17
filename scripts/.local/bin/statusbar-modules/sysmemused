@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# TODO
+# This script prints the current used memory (in GiB) to stdout.
 
 used=$(free | awk '/^Mem:/ {print $3}')
 used=$(deci $used/1024/1024)

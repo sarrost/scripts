@@ -1,4 +1,7 @@
 #!/bin/sh
+
+# This scripts counts the characters typed per minute and prints it to stdout.
+
 # shellcheck disable=SC2016,SC2059
 
 KEYBOARD_ID="AT Translated Set 2 keyboard"
@@ -10,10 +13,10 @@ FORMAT="%d"
 
 INTERVAL=20
 
-# If you have a keyboard layout that is not listed here yet, create a condition
-# yourself. $3 is the key index. Use `xinput test "AT Translated Set 2 keyboard"`
-# to see key codes in real time.  Be sure to open a pull request for your
-# layout's condition!
+# If you have a keyboard layout that is not listed here yet, create a 
+# condition yourself. $3 is the key index. Use `xinput test "AT Translated 
+# Set 2 keyboard"` to see key codes in real time.  Be sure to open a pull 
+# request for your layout's condition!
 LAYOUT=qwerty
 
 case "$LAYOUT" in

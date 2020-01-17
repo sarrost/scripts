@@ -1,4 +1,6 @@
-#!/bin/sh
+#! /bin/sh
+
+# This script displays the percentage nvidia gpu utilization.
 
 gpu=$(sudo intel_gpu_frequency --get)
 

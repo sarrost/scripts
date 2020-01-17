@@ -1,4 +1,8 @@
-#!/usr/bin/env bash
+#! /bin/sh
+
+# This script prints a formatted version of `herbstclient tag_status` to 
+# stdout.
+
 empty=・
 nonempty=⬡
 active=
@@ -8,6 +12,7 @@ other=⬢
 scratchempty=_
 scratchactive=
 scratchnonempty=
+
 while true; do
     herbstclient tag_status $1 | sed \
         's/\t/ /g; s/^ //; s/\.[0-9]\+\b/'"$empty"'/g;
@@ -22,7 +27,4 @@ while true; do
         s/\-[[:alpha:]_]\{1,\}//g;
         s/\%[[:alpha:]_]\{1,\}//g;
         s/\+[[:alpha:]_]\{1,\}//g;'
-        #s/\.scratchpad\b/'"$scratchempty"'/g;
-        #s/\#scratchpad\b/'"$scratchactive"'/g;
-        #s/\:scratchpad\b/'"$scratchnonempty"'/g'
 done
