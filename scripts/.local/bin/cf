@@ -3,4 +3,11 @@
 # This script runs `fzf` on the ~/.config and ~/.scripts directories
 # and opens the selected file in an nvim window.
 
-du -a ~/.scripts ~/.config |  awk '{print $2}' | fzf | xargs -r $EDITOR
+shortcuts_file=~/.config/files.scuts 
+
+(
+    rg --files --hidden --follow ~/.scripts; \
+    rg --files --hidden --follow ~/dotfiles; \
+    sed "s/\~/\/home\/$(whoami)/g" $shortcuts_file \
+    | awk '{print $2}'
+) | fzf | xargs -r $EDITOR
