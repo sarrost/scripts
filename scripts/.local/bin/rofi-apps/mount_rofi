@@ -1,15 +1,42 @@
 #! /bin/sh
 
-devices="$(lsblk -rpo "name,type,size,mountpoint" | awk '!/sdb[1-6]/ && $2=="part"&&$4==""{printf "%s (%s)\n",$1,$3}')"
-if [[ $devices == '' ]]; then
+# This script launches a `rofi` window used to mount devices to the 
+# `~/Mount` directory.
+
+devices="$(
+    lsblk -rpo "name,type,size,mountpoint" | 
+    awk '!/sdb[1-6]/ && $2=="part"&&$4==""{printf "%s (%s)\n",$1,$3}'
+)"
+
+if [ -z "$devices" ]; then
 	exit 0
 else	
-    device=$(echo $devices | rofi -dmenu -p "Choose device to mount:" | awk '{print $1}')
-    dirs="$(find $HOME/Mount -type d | awk '!/^\/home\/sarrost\/Mount$/ {split($0,a,"/"); printf "%s\n", a[5]}')"
-    dir=$(echo $dirs | rofi -sep ' ' -dmenu -p "Choose location to mount to:")
-    mp="$HOME/Mount/$dir"
-    mkdir "$mp"
-    sudo -A mount -o uid=1000,gid=985,umask=000 "$device" "$mp"
+    device=$(
+        echo $devices | 
+        rofi -dmenu -p "Choose device to mount:" | 
+        awk '{print $1}'
+    )
+
+    if [ -z "$device" ]; then
+	    exit 0
+    else
+        dirs="$(
+            find $HOME/Mount -type d | 
+            awk '!/^\/home\/sarrost\/Mount$/ {split($0,a,"/"); printf "%s\n", a[5]}'
+        )"
+        dir=$(
+            echo $dirs |
+            rofi -sep ' ' -dmenu -p "Choose location to mount to:"
+        )
+
+        if [ -z "$dir" ]; then
+	        exit 0
+        else
+            mp="$HOME/Mount/$dir"
+            mkdir "$mp"
+            sudo -A mount -o uid=1000,gid=985,umask=000 "$device" "$mp" && \
+            notify-send "USB mount" "Successfully mounted '$device' to '$dir'"
+        fi
+    fi
 fi
 exit 0
-#$device=
