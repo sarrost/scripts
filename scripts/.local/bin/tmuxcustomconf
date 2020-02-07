@@ -1,0 +1,5 @@
+#!/bin/sh
+
+tmux new -s tempsesh -d
+tmux source-file ~/.config/tmux/.tmux.conf
+tmux kill-session -t tempsesh
