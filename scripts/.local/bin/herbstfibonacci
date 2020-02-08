@@ -1,0 +1,10 @@
+#!/bin/sh
+layout=$(herbstclient dump 2>/dev/null)
+
+if [ "$layout" = "(clients vertical:0)" ]; then
+    $1
+else
+    herbstclient split auto \
+    && (herbstclient focus right &>/dev/null || herbstclient focus down) \
+    && $1 
+fi
