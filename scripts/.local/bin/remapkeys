@@ -1,0 +1,22 @@
+#!/bin/sh
+
+sleep 2
+# Remove Caps_Lock modifier from real Caps Lock key
+xmodmap -e "clear Lock"
+# Do the same with Ctrl keys
+xmodmap -e "clear Control"
+# Set real Caps Lock key to present as (right) control
+xmodmap -e "keycode 66 = Control_R"
+# Set real Escape key to present as Caps Lock
+xmodmap -e "keycode 9 = Caps_Lock"
+# Make a fake key to hold the Escape keysym, so xcape can use it
+xmodmap -e "keycode 255 = Escape"
+
+xmodmap -e "remove Mod4 = Hyper_L"
+xmodmap -e "add Mod4 = Control_L"
+xmodmap -e "add Control = Control_R"
+
+# Make Caps_Lock and Control_L work as one would expect
+xmodmap -e "add Lock = Caps_Lock"
+# Use xcape to map Escape to Caps key.
+xcape -e '#66=Escape'
