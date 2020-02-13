@@ -2,6 +2,23 @@
 
 # This script sets the desktop background.
 
-#feh --randomize --bg-scale ~/Pictures/Wallpaper/sfw/
-[ ! -z "$1" ] && cp "$1" ~/.config/wall.jpg && notify-send -i "$HOME/.config/wall.jpg" "Wallpaper changed."
-xwallpaper --zoom ~/.config/wall.jpg
+walldir=$HOME/.config
+
+( ls $walldir/wall.* ) &>/dev/null || exit
+
+# check for $1 argument passed.
+if [ ! -z "$1" ]; then
+    filename=$(basename -- "$1")
+    ext=${filename##*.}
+    cp "$1" ~/.config/wall.$ext
+# use the the default otherwise.
+else
+    file="$(ls $walldir/wall.*)"
+    filename=$(basename -- "$file")
+    ext="${filename##*.}"
+fi
+
+# set the wallpaper
+xwallpaper --zoom $walldir/wall.$ext && \
+notify-send "🖼 setwallpaper" "Wallpaper updated."
+
