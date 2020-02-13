@@ -1,0 +1,4 @@
+#!/bin/sh
+
+( killall screenkey && notify-send "Screenkey" "⏹ Off" ) || \
+( screenkey --no-systray -t 1 && notify-send "Screenkey" "▶ On" )
