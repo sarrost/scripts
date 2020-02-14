@@ -1,4 +1,19 @@
 #!/bin/sh
 
-( killall screenkey && notify-send "Screenkey" "⏹ Off" ) || \
-( screenkey --no-systray -t 1 && notify-send "Screenkey" "▶ On" )
+# This script toggles `screenkey`
+#
+# Usage:
+#   screenkeytoggle [SCREEN]
+#
+# Specify a screen for the screenkey to appear on.
+# If no arg is given then display 0 is used instead.
+
+screen=$1
+[ ! -z $screen ] || screen=0
+
+if ( killall screenkey ) &>/dev/null; then
+    notify-send "Screenkey" "⏹ Off"
+else
+    screenkey --no-systray -t 1 --scr $screen && \
+    notify-send "Screenkey" "▶ On" 
+fi
