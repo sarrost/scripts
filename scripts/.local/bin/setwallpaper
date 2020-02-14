@@ -1,24 +1,61 @@
 #! /bin/sh
 
 # This script sets the desktop background.
+#
+# Usage:
+#   setwallpaper [FILE]
+#
+# Sets the wallpaper to FILE and replaces the default image
+# found in the config folder. If no argument is given then 
+# the default image is used. If no FILE is specified and no 
+# default image is found the program exits with status code 1.
 
-walldir=$HOME/.config
+# Wallpaper dir and filename
+walldir=$HOME/.config/setwallpaper
+wallname=wall
+wallfull=$walldir/$wallname
 
-( ls $walldir/wall.* ) &>/dev/null || exit
+# This script's filename (for use in output)
+myname=`basename -- "$0"`
 
-# check for $1 argument passed.
-if [ ! -z "$1" ]; then
+# Some colors.
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# Create walldir if it doesn't exist
+[ ! -d $walldir ] && \
+mkdir -p $walldir && \
+echo -e "\n$myname: Wallpaper directory not found, creating '$RED$walldir/$NC'."
+
+# wall file exists and an arg is passed, set that as wall
+if ( ls $wallfull.* ) &>/dev/null && [ ! -z "$1" ]; then
     filename=$(basename -- "$1")
     ext=${filename##*.}
-    cp "$1" ~/.config/wall.$ext
-# use the the default otherwise.
-else
-    file="$(ls $walldir/wall.*)"
+    existingfile=$(ls $wallfull.* | head -1)
+    rm -f $wallfull.*
+    cp "$1" $wallfull.$ext
+    echo -e "\n$myname: File found in config dir, replacing '$RED$( basename -- $existingfile )$NC' with '$RED$1$NC'."
+# wall file exists and no arg is passed, just use wall
+elif ( ls $wallfull.* ) &>/dev/null; then
+    file="$(ls $wallfull.*)"
     filename=$(basename -- "$file")
     ext="${filename##*.}"
+    echo -e "\n$myname: No file given as arg, using default '$RED$wallname.$ext$NC'."
+# wall file does not exist and arg is passed, replace wall
+elif [ ! -z "$1" ]; then
+    filename=$(basename -- "$1")
+    ext=${filename##*.}
+    cp "$1" $wallfull.$ext
+    echo -e "\n$myname: No file found in config dir, creating '$RED$wallname.$ext$NC' from '$RED$1$NC'."
+# there is no wall file and no arg is passed, exit with status 1
+else
+    error="$myname: Error: No file found in cofig dir and no argument given."
+    suggestion="$myname: Run '$RED$myname file$NC' to set \`file\` as wallpaper."
+    >&2 echo -e "\n"$error"\n"$suggestion"\n"
+    exit 1
 fi
 
 # set the wallpaper
-xwallpaper --zoom $walldir/wall.$ext && \
+xwallpaper --zoom $wallfull.$ext && \
+echo -e "\n$myname: ${RED}Wallpaper updated.$NC\n"
 notify-send "🖼 setwallpaper" "Wallpaper updated."
-
