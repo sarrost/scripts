@@ -1,0 +1,4 @@
+#/bin/sh
+
+ffmpeg -i raw.mkv -vn -acodec copy out.flac 
+ffmpeg -i raw.mkv -c copy -an vid.mkv

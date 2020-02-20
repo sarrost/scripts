@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ffmpeg -i vid.mkv -i out.mp3 -c copy merged.mkv
