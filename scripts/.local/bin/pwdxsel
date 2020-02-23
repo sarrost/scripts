@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# This script copies the current $PWD to the clipboard.
+#
+# Usage:
+#     pwdxsel [FILE]
+#
+#     FILE  if provided $PWD/file will be copied to 
+#     clipboard instead.
+
+p="$(pwd)"
+
+if [ ! -z $1 ]; then # an arg is passed
+    # arg is an existing file or dir
+    if [ -a $p/$1 ] || [ -d $p/$1 ]; then
+        p=$p/$1
+        notify-send "📋 pwdxsel" "'<u><b>$p</b></u>' copied to clipboard."
+    # arg is invalid file or dir, just copy $PWD
+    else
+        a="'<u><b>$1</b></u>' was not found. "
+        b="Only '<u><b>$p</b></u>' was copied to clipboard."
+        notify-send "❌ pwdxsel" "$a$b"
+        exit 1
+    fi
+else # no arg passed, just copy $PWD.
+    notify-send "📋 pwdxsel" "'<u><b>$p</b></u>' copied to clipboard."
+fi
