@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # This script launches a `rofi` window used to mount devices to the 
-# `~/Mount` directory.
+# `~/mnt` directory.
 
 devices="$(
     lsblk -rpo "name,type,size,mountpoint" | 
@@ -21,8 +21,8 @@ else
 	    exit 0
     else
         dirs="$(
-            find $HOME/Mount -type d | 
-            awk '!/^\/home\/sarrost\/Mount$/ {split($0,a,"/"); printf "%s\n", a[5]}'
+            find $HOME/mnt -type d | 
+            awk '!/^\/home\/sarrost\/mnt$/ {split($0,a,"/"); printf "%s\n", a[5]}'
         )"
         dir=$(
             echo $dirs |
@@ -32,7 +32,7 @@ else
         if [ -z "$dir" ]; then
 	        exit 0
         else
-            mp="$HOME/Mount/$dir"
+            mp="$HOME/mnt/$dir"
             mkdir "$mp"
             sudo -A mount -o uid=1000,gid=985,umask=000 "$device" "$mp" && \
             notify-send "USB mount" "Successfully mounted '$device' to '$dir'"

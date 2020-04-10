@@ -3,11 +3,13 @@
 # This script runs `fzf` on the ~/.config and ~/.scripts directories
 # and opens the selected file in an nvim window.
 
+# TODO check for RICE_DOTFILES_DIR
+
 shortcuts_file=~/.config/files.scuts 
 
 (
-    rg --files --hidden --follow ~/.scripts; \
-    rg --files --hidden --follow ~/dotfiles; \
+    rg --files --hidden --follow "$RICE_SCRIPTS_DIR"; \
+    rg --files --hidden --follow "$RICE_DOTFILES_DIR"; \
     sed "s/\~/\/home\/$(whoami)/g" $shortcuts_file \
     | awk '{print $2}'
 ) | fzf | xargs -r $EDITOR

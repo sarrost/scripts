@@ -14,6 +14,6 @@ screen=$1
 if ( killall screenkey ) &>/dev/null; then
     notify-send "Screenkey" "⏹ Off"
 else
-    screenkey --no-systray -t 1 --scr $screen && \
+    screenkey --no-systray -t 1 --font-color cyan --scr $screen && \
     notify-send "Screenkey" "▶ On" 
 fi

@@ -13,7 +13,7 @@ killrecording() {
 	rm -f /tmp/recordingpid
 	updatestatus ""
 	# even after SIGTERM, ffmpeg may still run, so SIGKILL it.
-    notify-send " Recording" "Screencast stopped."
+  notify-send " Recording" "Screencast stopped."
 	sleep 3
 	kill -9 "$recpid" &>/dev/null
 	exit
@@ -32,13 +32,39 @@ screencast() { \
 	"$filename.mkv" & \
 	echo $! > /tmp/recordingpid 
 	updatestatus "screencast" 
-    notify-send "⏺ Recording" "Screencast started."
+  notify-send "⏺ Recording" "Screencast started."
+}
+
+video() { \
+    filename="$record_dir/[$(date '+%y%m%d-%H%M-%S')] video" 
+	ffmpeg \
+	-f x11grab \
+	-s $(xdpyinfo | grep dimensions | awk '{print $2;}') \
+	-i $DISPLAY \
+ 	-c:v libx264 -qp 0 -r 30 \
+	"$filename.mkv" &
+	echo $! > /tmp/recordingpid
+	updatestatus "video"
+  notify-send "⏺ Recording" "Screencast started."
+}
+
+audio() { \
+    filename="$record_dir/[$(date '+%y%m%d-%H%M-%S')] audio" 
+	ffmpeg \
+	-f alsa -i default \
+	-c:a flac \
+	"$filename.flac" &
+	echo $! > /tmp/recordingpid
+	updatestatus "🎙️"
+  notify-send "⏺ Recording" "Audio started."
 }
 
 askrecording() { \
-	choice=$(printf "screencast" | rofi -dmenu -i -p "recording:")
+	choice=$(printf "screencast\\nvideo\\naudio" | rofi -dmenu -i -p "recording:")
 	case "$choice" in
 		screencast) screencast;;
+		audio) audio;;
+		video) video;;
 	esac
 }
 
@@ -50,6 +76,8 @@ asktoend() { \
 
 case "$1" in
 	screencast) screencast;;
+	audio) audio;;
+	video) video;;
 	kill) killrecording;;
 	*) ([ -f /tmp/recordingpid ] && asktoend && exit) || askrecording;;
 esac

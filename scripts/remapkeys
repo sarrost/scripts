@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# This script remaps:
+#   L_CTRL <- SUPER
+#   CAPS <- ESC and CTRL
+#   ESC <- CAPS
+
 sleep 2
 # Remove Caps_Lock modifier from real Caps Lock key
 xmodmap -e "clear Lock"

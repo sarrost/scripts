@@ -17,6 +17,6 @@ password=$(
 
 # copy password to clipboard
 if [ ! -z $password ]; then
-    pass -c $password &>/dev/null && \
+    pass $password | xsel --clipboard &>/dev/null && \
     notify-send "Pass" "'$password' password copied to clipboard."
 fi

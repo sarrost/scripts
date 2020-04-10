@@ -5,16 +5,19 @@
 # Usage:
 #     pwdxsel [FILE]
 #
-#     FILE  if provided $PWD/file will be copied to 
+#     FILE  if provided $PWD/FILE will be copied to 
 #     clipboard instead.
 
-p="$(pwd)"
+p="$(pwd)" &>/dev/null
+echo $p | xsel --clipboard
 
 if [ ! -z $1 ]; then # an arg is passed
     # arg is an existing file or dir
     if [ -a $p/$1 ] || [ -d $p/$1 ]; then
         p=$p/$1
-        notify-send "📋 pwdxsel" "'<u><b>$p</b></u>' copied to clipboard."
+        echo $p | xsel --clipboard
+        notify-send "📋 pwdxsel" \
+            "'<u><b>$p</b></u>' copied to clipboard."
     # arg is invalid file or dir, just copy $PWD
     else
         a="'<u><b>$1</b></u>' was not found. "
@@ -23,5 +26,6 @@ if [ ! -z $1 ]; then # an arg is passed
         exit 1
     fi
 else # no arg passed, just copy $PWD.
-    notify-send "📋 pwdxsel" "'<u><b>$p</b></u>' copied to clipboard."
+    notify-send "📋 pwdxsel" \
+        "'<u><b>$p</b></u>' copied to clipboard."
 fi
