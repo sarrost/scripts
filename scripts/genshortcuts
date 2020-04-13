@@ -81,25 +81,25 @@ echo "${prepared_kv}" \
 ############################################################
 # Quick cd mapping
 echo "${prepared_kv}" \
-	| awk '{printf "nnoremap '"'"'%s :cd %s &<CR>\n", $1, $2}' \
+	| awk '{printf "nnoremap '"'"'%s :cd %s<CR>\n", $1, $2}' \
 	>> $vifm_shortcuts
 
 # Quick move command & mapping
 echo "${prepared_kv}" \
-	| awk '{printf "command! mv%s :!mv %%f %s &\n", $1, $2}' \
+	| awk '{printf "command! mv%s :!mv %%f %s\n", $1, $2}' \
 	>> $vifm_shortcuts
 
 echo "${prepared_kv}" \
-	| awk '{printf "nnoremap mv%s :!mv %%f %s &<CR>\n", $1, $2}' \
+	| awk '{printf "nnoremap mv%s :!mv %%f %s<CR>\n", $1, $2}' \
 	>> $vifm_shortcuts
 
 # Quick yank/put command & mapping
 echo "${prepared_kv}" \
-	| awk '{printf "command! yp%s :!cp %%f %s &\n", $1, $2}' \
+	| awk '{printf "command! yp%s :!cp %%f %s\n", $1, $2}' \
 	>> $vifm_shortcuts
 
 echo "${prepared_kv}" \
-	| awk '{printf "nnoremap yp%s :!cp %%f %s &<CR>\n", $1, $2}' \
+	| awk '{printf "nnoremap yp%s :!cp %%f %s<CR>\n", $1, $2}' \
 	>> $vifm_shortcuts
 
 printf "\n\" v""im: filetype=vifm" >> $vifm_shortcuts
