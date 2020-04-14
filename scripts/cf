@@ -1,15 +1,43 @@
-#! /bin/sh
+#!/bin/sh
 
-# This script runs `fzf` on the ~/.config and ~/.scripts directories
-# and opens the selected file in an nvim window.
+#〖愛〗This script provides quick acess to config files.
+#
+# Usage:
+#   cf
+#
+# Runs `fzf` on the RICE_DOTFILES_DIR and RICE_SCRIPTS_DIR 
+# directories and opens the selected file in the text 
+# editor. Be sure to set the respective environment 
+# variables before running this script.
+#
+# A good default for RICE_SCRIPTS_DIR would be ~/.local/bin
+# if you don't maintain a seperate dir/repo for your 
+# scripts.
 
-# TODO check for RICE_DOTFILES_DIR
+# This script's filename (for use in output)
+script_name=`basename -- "$0"`
 
-shortcuts_file=~/.config/files.scuts 
+# Some colors.
+COLOR1='\033[0;31m' # Standard RED
+NC='\033[0m' # No Color
 
+# Send error message to stderr
+print_error() {
+	>&2 echo -e \
+	"${COLOR1}${script_name}${NC}: ${COLOR1}error${NC}:"\
+	"Please set the '${COLOR1}$1${NC}'"\
+	"environment variable."
+}
+
+# Check if env vars are set
+[ -z "$RICE_DOTFILES_DIR" ] && \
+print_error 'RICE_DOTFILES_DIR' && exit 1
+
+[ -z "$RICE_SCRIPTS_DIR" ] && \
+print_error 'RICE_SCRIPTS_DIR' && exit 1
+
+# FZF
 (
-    rg --files --hidden --follow "$RICE_SCRIPTS_DIR"; \
-    rg --files --hidden --follow "$RICE_DOTFILES_DIR"; \
-    sed "s/\~/\/home\/$(whoami)/g" $shortcuts_file \
-    | awk '{print $2}'
+	rg --files --hidden --follow "$RICE_DOTFILES_DIR"; \
+	rg --files --hidden --follow "$RICE_SCRIPTS_DIR"
 ) | fzf | xargs -r $EDITOR
