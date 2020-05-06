@@ -1,7 +1,13 @@
-#! /bin/sh
+#!/bin/sh
 
-# This script prints the current used memory (in GiB) to stdout.
+# This script prints the current used memory (in GiB) to
+# stdout.
 
-used=$(free | awk '/^Mem:/ {print $3}')
-used=$(deci $used/1024/1024)
-echo $used
+t=`awk '/MemTotal/ { printf "%f", $2 }' /proc/meminfo`
+f=`awk '/MemAvailable/ { printf "%f", $2 }' /proc/meminfo`
+
+used=`echo "$t - $f" | bc | \
+	awk '{ printf "%.2f", $1/1024/1024 }'
+`
+
+printf "$used"

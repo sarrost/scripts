@@ -1,7 +1,0 @@
-#! /bin/sh
-
-# This script prints the current free memory (in GiB) to stdout.
-
-free=$(free | awk '/^Mem:/ {print $7}')
-free=$(deci $free/1024/1024)
-echo $free

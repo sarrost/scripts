@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# This script prints the current free memory (in GiB) to 
+# stdout.
+
+available=$( awk \
+	'/MemAvailable/ { printf "%.2f", $2/1024/1024 }' \
+	/proc/meminfo
+)
+
+printf "$available"
