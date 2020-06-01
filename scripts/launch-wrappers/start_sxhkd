@@ -1,5 +1,0 @@
-#! /bin/sh
-
-killall -q sxhkd
-sxhkd & disown
-notify-send "Sxhkd" "Hotkey daemon successfully launched."
