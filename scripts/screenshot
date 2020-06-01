@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#〖愛〗This script is a wrapper for the scrot utility.
+#
+# Usage:
+#   screenshot [args]
+#
+# args - See scrot(1).
+
+$( scrot '%Y%m%d-%H%M%S-$wx$h.png' \
+	-e 'mv $f ~/media/pic/screen/' \
+	--quality 100 \
+	--silent \
+	$* ) & disown
