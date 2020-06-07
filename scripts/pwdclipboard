@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# pwdclipboard - copy the working dir to the clipboard
+#〖愛〗pwdclipboard - copy the working dir to the clipboard
 
 # Usage:
 #		pwdclipboard [FILE]
