@@ -1,6 +1,6 @@
 #!/bin/sh
 
-record_dir="$HOME/Videos/Herbert"
+record_dir="$XDG_VIDEOS_DIR/Herbert"
 
 updatestatus() { \
 	echo "$1" > /tmp/recordingicon

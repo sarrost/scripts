@@ -1,4 +1,0 @@
-#! /bin/sh
-
-file=$(du -a ~/.scripts ~/.config |  awk '{print $2}' | rofi -dmenu -p "script")
-$TERMINAL -e sh -c "$EDITOR $file"

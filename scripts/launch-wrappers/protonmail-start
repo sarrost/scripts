@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sleep 5
+protonmail-bridge --no-window & disown
+notify-send "✓ protonmail-bridge" "Protonmail successfully launched."

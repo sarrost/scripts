@@ -1,7 +1,0 @@
-#! /bin/sh
-# This is a script 
-
-configrc=$HOME/.config/configrc
-home=$(echo $HOME | sed 's/\//\\\//g') # prep for sed
-file=$(cat $configrc | rofi -dmenu) &&
-vim $(echo "$file" | sed "s/\~/$home/g")

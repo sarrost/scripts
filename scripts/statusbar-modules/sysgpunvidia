@@ -1,6 +1,0 @@
-#!/bin/sh
-
-# This script displays the percentage nvidia gpu utilization.
-
-nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits \
-    | awk '{ print ""$1""}'

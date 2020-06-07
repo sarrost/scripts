@@ -1,0 +1,10 @@
+#!/bin/sh
+
+ymd=`date "+%Y年%m月%d日"`
+time=`date "+%H時%M分%S秒"`
+weekday=`date "+%u" | \
+	sed 's/1/月/; s/2/火/;	s/3/水/;	s/4/木/;	s/5/金/;	s/6/土/; s/7/日/'`
+
+datetime="$ymd ($weekday) $time"
+
+printf "$datetime"

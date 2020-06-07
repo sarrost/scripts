@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# This script prints the current battery status as a
+# "Font Awesome" symbol in stdout.
+
+s="`cat /sys/class/power_supply/BAT1/status`"
+
+case "$s" in
+	Unknown) icon="∞";;
+	Charging) icon="";;
+	Discharging) icon="";;
+	*) icon="";;
+esac
+
+printf "$icon"
