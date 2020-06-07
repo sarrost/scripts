@@ -1,31 +1,35 @@
 #!/bin/sh
 
-# This script copies the current $PWD to the clipboard.
-#
+# pwdclipboard - copy the working dir to the clipboard
+
 # Usage:
-#     pwdxsel [FILE]
-#
-#     FILE  if provided $PWD/FILE will be copied to 
-#     clipboard instead.
+#		pwdclipboard [FILE]
 
+# - FILE
+#		if provided $PWD/FILE will be copied to clipboard 
+#		instead.
+
+# REQUIRED: xsel 
+
+# Script name
+name=${0##*\/}
+
+# The job
 p="$(pwd)" &>/dev/null
-echo $p | xsel --clipboard
-
-if [ ! -z $1 ]; then # an arg is passed
-    # arg is an existing file or dir
-    if [ -a $p/$1 ] || [ -d $p/$1 ]; then
-        p=$p/$1
-        echo $p | xsel --clipboard
-        notify-send "📋 pwdxsel" \
-            "'<u><b>$p</b></u>' copied to clipboard."
-    # arg is invalid file or dir, just copy $PWD
-    else
-        a="'<u><b>$1</b></u>' was not found. "
-        b="Only '<u><b>$p</b></u>' was copied to clipboard."
-        notify-send "❌ pwdxsel" "$a$b"
-        exit 1
-    fi
+if [ ! -z "$1" ]; then # an arg is passed
+	# arg is an existing file/dir
+	if [ -a "$p/$1" ] || [ -d "$p/$1" ]; then
+		p="$p/$1"
+		echo "$p" | xsel --clipboard
+		notify-send "📋 $name" \
+			"'<u><b>$p</b></u>' copied to clipboard."
+	else # arg is invalid file/dir, just copy $PWD
+		a="'<u><b>$1</b></u>' was not found. "
+		b="Only '<u><b>$p</b></u>' was copied to clipboard."
+		notify-send "❌ $name" "$a$b"
+		exit 1
+	fi
 else # no arg passed, just copy $PWD.
-    notify-send "📋 pwdxsel" \
-        "'<u><b>$p</b></u>' copied to clipboard."
+	notify-send "📋 $name" \
+		"'<u><b>$p</b></u>' copied to clipboard."
 fi
