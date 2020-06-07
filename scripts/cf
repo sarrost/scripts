@@ -1,43 +1,40 @@
 #!/bin/sh
 
-#〖愛〗This script provides quick acess to config files.
-#
+#〖愛〗cf - quickly access files
+
 # Usage:
 #   cf
-#
-# Runs `fzf` on the RICE_DOTFILES_DIR and RICE_SCRIPTS_DIR 
-# directories and opens the selected file in the text 
-# editor. Be sure to set the respective environment 
-# variables before running this script.
-#
-# A good default for RICE_SCRIPTS_DIR would be ~/.local/bin
-# if you don't maintain a seperate dir/repo for your 
-# scripts.
+
+# Runs `fzf` on $XDG_CONFIG_HOME/cf and opens the selected 
+# file in the text editor. Be sure to set the respective 
+# environment variables before running this script.
+
+cf_dir="${XDG_CONFIG_HOME}cf"
 
 # This script's filename (for use in output)
 script_name=`basename -- "$0"`
+script_name=${0##*\/}
 
-# Some colors.
+# Some colors
 COLOR1='\033[0;31m' # Standard RED
 NC='\033[0m' # No Color
 
-# Send error message to stderr
-print_error() {
+# Housekeep
+cf_err() {
 	>&2 echo -e \
 	"${COLOR1}${script_name}${NC}: ${COLOR1}error${NC}:"\
-	"Please set the '${COLOR1}$1${NC}'"\
+	"'${COLOR1}\$XDG_CONFIG_HOME/cf${NC}'"\
+	"does not exist."
+}
+editor_err() {
+	>&2 echo -e \
+	"${COLOR1}${script_name}${NC}: ${COLOR1}error${NC}:"\
+	"Please set the '${COLOR1}\$EDITOR${NC}'"\
 	"environment variable."
 }
+[ -z "$cf_dir" ] && cf_err && exit 1
+[ -z "$EDITOR" ] && editor_err && exit 1
 
-# Check if env vars are set
-[ -z "$RICE_DOTFILES_DIR" ] && \
-print_error 'RICE_DOTFILES_DIR' && exit 1
-
-[ -z "$RICE_SCRIPTS_DIR" ] && \
-print_error 'RICE_SCRIPTS_DIR' && exit 1
-
-# FZF
-(
-	rg --files --hidden --follow "$RICE_DOTFILES_DIR"; \
-	rg --files --hidden --follow "$RICE_SCRIPTS_DIR"
-) | fzf | xargs -r $EDITOR
+# The job
+rg --files --hidden --follow "${XDG_CONFIG_HOME}cf" \
+	| fzf | xargs -r $EDITOR
