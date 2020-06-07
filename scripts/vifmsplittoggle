@@ -1,0 +1,38 @@
+#!/bin/sh
+
+#〖愛〗vifmsplittoggle - cycle toggle split in vifm
+
+# Usage (from within vifm instance):
+#		:!vifmsplittoggle &
+
+# NOTE: Is laggy/not-smooth if preview pane is on.
+
+# Housekeep
+err() {
+	# Some colors
+	COLOR1='\033[0;31m' # Standard RED
+	NC='\033[0m' # No Color
+	script_name=${0##*\/}
+	>&2 echo -e \
+	"${COLOR1}${script_name}${NC}: ${COLOR1}error${NC}:"\
+	"Please call from within vifm instance."
+}
+[ -z "$VIFM_SERVER_NAME" ] && err && exit 1
+
+# Maintain state
+file="/tmp/vifm-split-${PPID}-${VIFM_SERVER_NAME}"
+
+# Create file if it doesn't exist. Default split is vert.
+[ ! -f "$file" ] && printf "v" > "$file"
+split=`<$file`
+
+# Send command remotely.
+cmd="/bin/vifm --server-name ${VIFM_SERVER_NAME} --remote -c"
+case "$split" in
+	v) eval $cmd "split"
+		printf "s" > "$file";;
+	s) eval $cmd "only"
+		printf "o" > "$file";;
+	o) eval $cmd "vsplit"
+		printf "v" > "$file"
+esac
