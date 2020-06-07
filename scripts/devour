@@ -1,0 +1,19 @@
+#!/bin/sh
+
+#〖愛〗devour - open files with default programs
+
+# Usage:
+#		devour FILE
+
+case "$1" in
+	# Video
+	*.3gp|*.avi|*.m4v|*.mkv|*.mov|*.mp4|*.mpeg|*.mpg|*.mts|*.ts|*.webm|*.wmv) 
+		mpv "$1" &>/dev/null & disown;;
+	# Audio
+	*.mp3|*.wav|*.flac|*.m4a|*.ogg|*.opus) 
+		/bin/sh -c "st -e mpv '$1'" &>/dev/null & disown;;
+	# Misc
+	*.pdf|*.djvu) 
+		zathura "$1" &>/dev/null & disown;;
+	*) $EDITOR "$1"
+esac
