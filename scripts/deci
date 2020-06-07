@@ -1,5 +1,8 @@
-#! /bin/sh
+#!/bin/sh
 
-# TODO
+#〖愛〗deci - sensibly print float with two decimal points
+
+# Usage:
+#		deci [FLOAT]
 
 awk "BEGIN{ printf \"%.2f\n\", $* }"
