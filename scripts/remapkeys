@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# This script remaps:
+#〖愛〗remapkeys - ramap certain keys
+
+# Remaps:
 #   L_CTRL <- SUPER
 #   CAPS <- ESC and CTRL
 #   ESC <- CAPS
