@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#〖愛〗keyboardtoggle - toggle laptop keyboard
+
+# NOTE: It is assumed that another keyboard is plugged in.
+
+on=`xinput list | grep AT | awk '{print $8}'`
+
+[ "$on" = "[floating" ] && xinput reattach 20 3 && exit
+xinput float 20
