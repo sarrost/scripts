@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#〖愛〗up - quickly update system packages
+
+yay -Syu --noconfirm
