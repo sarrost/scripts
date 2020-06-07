@@ -12,7 +12,6 @@
 cf_dir="${XDG_CONFIG_HOME}cf"
 
 # This script's filename (for use in output)
-script_name=`basename -- "$0"`
 script_name=${0##*\/}
 
 # Some colors
