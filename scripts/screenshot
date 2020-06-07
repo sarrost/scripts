@@ -1,14 +1,18 @@
 #!/bin/sh
 
-#〖愛〗This script is a wrapper for the scrot utility.
-#
+#〖愛〗screenshot - a wrapper for scrot
+
 # Usage:
 #   screenshot [args]
-#
-# args - See scrot(1).
+
+#	-	args
+#		See scrot(1).
+
+# REQUIRED: Set $RICE_SCREENSHOT_DIR var, it is the dir
+#	          where all screenshots are saved.
 
 $( scrot '%Y%m%d-%H%M%S-$wx$h.png' \
-	-e 'mv $f ~/media/pic/screen/' \
+	-e "mv \$f $RICE_SCREENSHOT_DIR" \
 	--quality 100 \
 	--silent \
 	$* ) & disown
