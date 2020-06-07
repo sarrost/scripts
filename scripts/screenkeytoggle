@@ -1,19 +1,28 @@
 #!/bin/sh
 
-# This script toggles `screenkey`
-#
+#〖愛〗screenkeytoggle - toggle screenkey
+
 # Usage:
 #   screenkeytoggle [SCREEN]
-#
-# Specify a screen for the screenkey to appear on.
-# If no arg is given then display 0 is used instead.
 
-screen=$1
-[ ! -z $screen ] || screen=0
+#	- SCREEN
+#		Specify a screen for the screenkey to appear on.
+#		If no arg is given then display 0 is used instead.
+
+# REQUIRED: screenkey
+
+screen="$1"
+[ ! -z "$screen" ] || screen=0
 
 if ( killall screenkey ) &>/dev/null; then
-    notify-send "Screenkey" "⏹ Off"
+    notify-send "Screenkey" "⌨ Off"
 else
-    screenkey --no-systray -t 1 --font-color cyan --scr $screen && \
-    notify-send "Screenkey" "▶ On" 
+    screenkey \
+			--no-systray \
+			-t 1 \
+			--font-color "#09e8a5" \
+			--font "Hack" \
+			--scr "$screen" \
+			&>/dev/null & disown && \
+    notify-send "Screenkey" "⌨ On" 
 fi
