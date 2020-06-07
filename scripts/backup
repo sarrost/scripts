@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#〖愛〗backup - backup a file
+
+# Usage:
+#   backup FILE
+
+cp "$1" "$1".backup
