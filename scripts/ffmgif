@@ -1,0 +1,16 @@
+#!/bin/sh
+ 
+#〖愛〗ffmgif - convert video to gif
+
+# $1 - input filename
+# $2 - output filename
+# $2 - height
+
+err() {
+	printf "error"
+}
+
+[ -z "$1" ] && err && exit 1
+
+ffmpeg -i "$1" -vf "fps=15,scale=$2:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 "$3"
+
