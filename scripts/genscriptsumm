@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#〖愛〗genscriptsumm - print script summaries for README.md
+
+# Line 3 of all scripts must be in the same format of line 3
+# as this file. Example:
+#			#〖愛〗script - description
+
+# Housekeep
+err() {
+	printf "Please set \$RICE_SCRIPTS_DIR variable.\n"
+}
+[ -z "$RICE_SCRIPTS_DIR" ] && err && exit 1
+
+# The job
+cd "$RICE_SCRIPTS_DIR"
+files="`rg --files .`"
+for f in $files; do
+	summary=`sed -n 's/#〖愛〗//g; 3p' $f`
+	link='https://github.com/sarrost/scripts/blob/master/'
+	link="$link`echo $f | sed 's/^./scripts/g'`?ts=2"
+	str="- [${summary% - *}]($link) - ${summary#* - }"
+	printf "%s\n" "$str"
+done
