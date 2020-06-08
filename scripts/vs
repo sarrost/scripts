@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#〖愛〗vs - quickly create and edit script
+
+# Usage:
+#		vs [FILE]
+
+cd "$RICE_SCRIPTS_DIR"
+
+# Housekeep
+err() {
+	printf "Invalid filename.\n"
+}
+[ -z "$1" ] && err && exit 1
+([ -f "$1" ] || [ -d "$1" ]) && err && exit 1
+
+# Create file
+printf "#!/bin/sh\n\n#〖愛〗%s - <~~>\n\n# Usage:\n#   %s\n\n# - <~~>\n#   <~~>\n\n" "$1" "$1" > "$1"
+chmod +x "$1"
+
+# Edit file
+$EDITOR "$1"
