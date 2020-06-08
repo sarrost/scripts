@@ -1,10 +1,10 @@
 #!/bin/sh
 
-#〖愛〗This script sets the desktop background.
-#
+#〖愛〗setwallpaper - set the desktop background
+
 # Usage:
 #   setwallpaper [--verbose] [FILE]
-#
+
 # Sets the wallpaper to FILE and replaces the default image
 # found in the config folder. If no argument is given then
 # the default image is used. If no FILE is specified and no
@@ -77,4 +77,4 @@ fi
 xwallpaper --zoom $wallfull.$ext && \
 [ $verbose = true ] && echo -e "\n$script_name:"\
 	"${COLOR1}Wallpaper updated.$NC\n"
-notify-send "💻 setwallpaper" "Wallpaper updated."
+notify-send " setwallpaper" "Wallpaper updated."
