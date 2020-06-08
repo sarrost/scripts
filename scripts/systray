@@ -1,0 +1,37 @@
+#!/bin/sh
+
+#〖愛〗systray - wrapper for stalonetray
+
+name='Stalonetray'
+
+killcmd() {
+	killall -q stalonetray &>/dev/null
+}
+
+killtray() {
+	killcmd
+	notify-send "⛩ $name" "System tray terminated."
+}
+
+starttray() {
+	updatetray
+	notify-send "⛩ $name" "System tray launched."
+}
+
+toggletray() {
+	killcmd || updatetray
+}
+
+updatetray() {
+	killcmd
+	stalonetray \
+		--config $XDG_CONFIG_HOME/stalonetray/stalonetrayrc \
+		&>/dev/null & disown
+}
+
+case $1 in
+	off|kill) killtray;;
+	toggle) toggletray;;
+	update) updatetray;;
+	*) starttray;;
+esac
