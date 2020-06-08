@@ -1,3 +1,5 @@
 #!/bin/sh
 
-vim -c "StarDict $1"
+#〖愛〗def - search up word in dictionary
+
+nvim -c "StarDict $1"
