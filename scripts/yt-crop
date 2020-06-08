@@ -1,3 +1,0 @@
-#!/bin/sh
-
-ffmpeg -i merged.mkv -filter:v "crop=1920:1080:1680:0" cropped.mkv

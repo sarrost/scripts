@@ -1,4 +1,6 @@
 #/bin/sh
 
+#〖愛〗yt-split - split audio and video
+
 ffmpeg -i raw.mkv -vn -acodec copy out.flac 
 ffmpeg -i raw.mkv -c copy -an vid.mkv
