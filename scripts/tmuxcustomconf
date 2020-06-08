@@ -1,5 +1,6 @@
 #!/bin/sh
 
+#〖愛〗tmuxcustomconf - set custom tmux conf location
 tmux new -s tempsesh -d
 tmux source-file ~/.config/tmux/.tmux.conf
 tmux kill-session -t tempsesh
