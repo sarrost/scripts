@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#〖愛〗genscriptsumm - print script summaries for README.md
+#〖愛〗genscriptsumm - print script summaries for `README.md`
 
 # Line 3 of all scripts must be in the same format of line 3
 # as this file. Example:
