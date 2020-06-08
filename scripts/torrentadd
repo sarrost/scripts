@@ -1,4 +1,6 @@
-#!/usr/bin/env sh
+#!/bin/sh
+
+#〖愛〗torrentadd - add and start torrent
 
 # Mimeapp script for adding torrent to transmission-daemon, but will also start the daemon first if not running.
 
