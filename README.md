@@ -2,20 +2,18 @@
 
 Some shell scripts I've written/gathered which I use on my linux setup on a daily basis. I use [zsh](https://wiki.archlinux.org/index.php/Zsh) as my main shell, 99% of the scripts will work on [bash](https://wiki.archlinux.org/index.php/Bash) though. I'm not anal about remaining [POSIX](https://en.wikipedia.org/wiki/POSIX) compliant. If you absolutely must repurpose any of the scripts for a POSIX shell I assume you are capable of doing so.
 
-**IMPORTANT**: Many of the scripts rely on variables I set in my `~/.profile` contained in my [dotfiles](https://github.com/sarrost/dotfiles).
+**IMPORTANT**: Many of the scripts rely on variables I set in my `~/.profile` contained in my [dotfiles](https://github.com/sarrost/dotfiles). Some scripts use external programs, I do mention (as much as I can recall) which programs are required within the scripts.
 
 # Table of Content
 
-* [Table of Content](#table-of-content)
-	* [Installation](#installation)
-	* [List of Scripts](#list-of-scripts)
-	* [Why not use `.local/bin`?](#why-not-use-localbin)
-	* [Contact](#contact)
+* [Installation](#installation)
+* [List of Scripts](#list-of-scripts)
+* [Why not use `.local/bin`?](#why-not-use-localbin)
+* [Contact](#contact)
 
 ## Installation
 
 Simply copy-pasta to your own scripts dir, or clone this repo and add them to your `$PATH`. For the latter method do:
-
 ```bash
 cd ~
 git clone https://github.com/sarrost/scripts
@@ -33,18 +31,19 @@ To test if everything is working correctly open up a new terminal and do:
 cd ~
 testpath
 ```
-If the above doesn't work please make sure you properly set the `$PATH` variable in your `~/.profile`.
 
-If the scripts refuse to execute do, give them all execute permissions.
+If the above doesn't work please make sure you properly set the `$PATH` variable in your `~/.profile`. If the scripts refuse to execute do, give them all execute permissions.
 ```bash
 chmod +x -R ~/scripts/scripts
 ```
 
 ## List of Scripts
 
-Many of the scripts are designed to be used with other programs, such as vim, vifm, zsh, fzf, tmux, etc. See my [dotfiles](https://github.com/sarrost/dotfiles) for how I integrate the scripts.
+Many of the scripts are designed to be used with other programs, such as [vim](https://wiki.archlinux.org/index.php/Vim), [vifm](https://wiki.archlinux.org/index.php/Vifm), [zsh](https://wiki.archlinux.org/index.php/Zsh), [fzf](https://wiki.archlinux.org/index.php/Fzf), [tmux](https://wiki.archlinux.org/index.php/Tmux), etc. See my [dotfiles](https://github.com/sarrost/dotfiles) for how I integrate the scripts.
 
-* [remapkeys](https://github.com/sarrost/scripts/blob/master/scripts/remapkeys) - ramap certain keys
+- [remapkeys](https://github.com/sarrost/scripts/blob/master/scripts/remapkeys) - ramap certain keys
+- [screenkeytoggle](https://github.com/sarrost/scripts/blob/master/scripts/screenkeytoggle) - toggle screenkey
+- [vifmsplittoggle](https://github.com/sarrost/scripts/blob/master/scripts/vifmsplittoggle) - cycle toggle split in vifm 
 
 ## Why not use `.local/bin`?
 
