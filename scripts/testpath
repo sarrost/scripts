@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#〖愛〗testpath - check if containing dir is in $PATH
+
+printf "Everything is working, scripts successfully added to \$PATH.\n"
