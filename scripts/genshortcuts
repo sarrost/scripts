@@ -1,31 +1,28 @@
 #!/bin/sh
 
-#〖愛〗This script generates shell and file manager 
-# shortcuts for changing to, copying and moving files to 
-# directories specified in a config file.
-#
+#〖愛〗genshortcuts - generate dir shortcuts
+
 # Usage:
 #   genshortcuts [--verbose]
-#
+
+# Auto generate shortcuts for changing to, copying and 
+# moving files to directories specified in a config file.
+
 # New files are created for the shortcuts. The script is
 # non-verbose by default. When verbose the new files are 
 # additionally printed to stdout.
 
-# Process args
-script_name=`basename $0`
-verbose=false
-[ ! -z "$1" ] && [ "$1" = "--verbose" ] && verbose=true
-
-# Some colors.
-COLOR1='\033[0;31m' # STANDARD RED
-NC='\033[0m' # No Color
-
-# Input
+# Config file
 dirs="$XDG_CONFIG_HOME/genshortcuts/dirsrc"
 
 # Output locations
 shell_shortcuts="$XDG_CONFIG_HOME/zsh/config/shortcuts.zsh"
 vifm_shortcuts="$XDG_CONFIG_HOME/vifm/config/shortcuts.vifm"
+
+# Process args
+script_name=`basename $0`
+verbose=false
+[ ! -z "$1" ] && [ "$1" = "--verbose" ] && verbose=true
 
 # Remove old files
 rm -f "$shell_shortcuts" "$vifm_shortcuts" 2>/dev/null
@@ -52,6 +49,9 @@ prepared_kv=`sed "/^\s*$/d;/\s*#.*$/d" $dirs`
 
 # Print output file for debug purposes
 print_file() {
+	# Some colors.
+	COLOR1='\033[0;31m' # STANDARD RED
+	NC='\033[0m' # No Color
 	echo -e "${COLOR1}$1${NC}" && \
 	cat $1 && \
 	echo ""
