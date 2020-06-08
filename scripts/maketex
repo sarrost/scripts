@@ -1,4 +1,7 @@
-#! /bin/sh
+#!/bin/sh
+
+#〖愛〗maketex - quickly compile LaTeX pdf
+
 pdflatex $1
 bibtex $1
 pdflatex $1
