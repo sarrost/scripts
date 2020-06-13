@@ -1,0 +1,56 @@
+#!/bin/sh
+
+#〖愛〗statusbar_cpuusage - print the cpu usage for all cores
+
+interval="$1"
+num_cores=`grep -P 'cpu' /proc/stat | wc -l`
+
+prev_stats=`grep -P 'cpu' /proc/stat `
+prev_date=`date +%s%N | cut -b1-13`
+
+sleep "$interval"
+curr_date=`date +%s%N | cut -b1-13`
+curr_stats=`grep -P 'cpu' /proc/stat `
+
+curr_user=( `echo "$curr_stats" | awk -F " " '{print $2}'` )
+curr_nice=( `echo "$curr_stats" | awk -F " " '{print $3}'` )
+curr_system=( `echo "$curr_stats" | awk -F " " '{print $4}'` )
+curr_idle=( `echo "$curr_stats" | awk -F " " '{print $5}'` )
+curr_iowait=( `echo "$curr_stats" | awk -F " " '{print $6}'` )
+curr_irq=( `echo "$curr_stats" | awk -F " " '{print $7}'` )
+curr_softirq=( `echo "$curr_stats" | awk -F " " '{print $8}'` )
+curr_steal=( `echo "$curr_stats" | awk -F " " '{print $9}'` )
+curr_guest=( `echo "$curr_stats" | awk -F " " '{print $10}'` )
+curr_guest_nice=( `echo "$curr_stats" | awk -F " " '{print $11}'` )
+
+prev_user=( `echo "$prev_stats" | awk -F " " '{print $2}'` )
+prev_nice=( `echo "$prev_stats" | awk -F " " '{print $3}'` )
+prev_system=( `echo "$prev_stats" | awk -F " " '{print $4}'` )
+prev_idle=( `echo "$prev_stats" | awk -F " " '{print $5}'` )
+prev_iowait=( `echo "$prev_stats" | awk -F " " '{print $6}'` )
+prev_irq=( `echo "$prev_stats" | awk -F " " '{print $7}'` )
+prev_softirq=( `echo "$prev_stats" | awk -F " " '{print $8}'` )
+prev_steal=( `echo "$prev_stats" | awk -F " " '{print $9}'` )
+prev_guest=( `echo "$prev_stats" | awk -F " " '{print $10}'` )
+prev_guest_nice=( `echo "$prev_stats" | awk -F " " '{print $11}'` )
+
+range=$( seq 0 $(( $num_cores - 1 )) )
+# printf "〚 "
+for i in $range; do
+    PrevIdle=$(( ${prev_idle[$i]} + ${prev_iowait[$i]} ))
+    Idle=$((${curr_idle[$i]} + ${curr_iowait[$i]}))
+
+    PrevNonIdle=$((${prev_user[$i]} + ${prev_nice[$i]} + ${prev_system[$i]} + ${prev_irq[$i]} + ${prev_softirq[$i]} + ${prev_steal[$i]}))
+    NonIdle=$((${curr_user[$i]} + ${curr_nice[$i]} + ${curr_system[$i]} + ${curr_irq[$i]} + ${curr_softirq[$i]} + ${curr_steal[$i]}))
+
+    PrevTotal=$((PrevIdle + PrevNonIdle))
+    Total=$((Idle + NonIdle))
+
+    totald=$((Total - PrevTotal))
+    idled=$((Idle - PrevIdle))
+
+    CPU_Percentage=$(awk "BEGIN {print ($totald - $idled)/$totald*100}")
+
+		( [ "$i" == 0 ] && printf "%2.0f " "$CPU_Percentage") ||  printf " %2.0f" "$CPU_Percentage"
+done
+# printf " 〛"

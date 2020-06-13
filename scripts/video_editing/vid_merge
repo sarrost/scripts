@@ -1,5 +1,5 @@
 #!/bin/sh
 
-#〖愛〗yt-merge - merge video and audio back together
+#〖愛〗vid_merge - merge video and audio back together
 
 ffmpeg -i vid.mkv -i out.mp3 -c copy merged.mkv

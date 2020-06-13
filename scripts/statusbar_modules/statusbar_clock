@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#〖愛〗statusbar_clock - print the current time
+
+printf "〚 `date "+%H:%M"` 〛"

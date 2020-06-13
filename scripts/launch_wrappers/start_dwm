@@ -1,4 +1,5 @@
 #! /bin/sh
 
+# TODO
 pkill -1 dwm
 notify-send "dwm" "WM successfully reloaded."

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#〖愛〗statusbar_backlight - print backlight level
+
+printf "〚 %.0f  〛" "`xbacklight -get`"

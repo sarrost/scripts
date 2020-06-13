@@ -1,5 +1,6 @@
 #! /bin/sh
 
+# TODO
 # This script launches a `rofi` window used to unmount devices in the 
 # `~/Mount` directory.
 

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#〖愛〗statusbar_memavail - print available memory
+
 # This script prints the current free memory (in GiB) to 
 # stdout.
 
@@ -8,4 +10,4 @@ available=$( awk \
 	/proc/meminfo
 )
 
-printf "$available"
+printf "〚 $available "

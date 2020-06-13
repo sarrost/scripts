@@ -41,38 +41,51 @@ chmod +x -R ~/scripts/scripts
 
 Many of the scripts are designed to be used with other programs, such as [vim](https://wiki.archlinux.org/index.php/Vim), [vifm](https://wiki.archlinux.org/index.php/Vifm), [zsh](https://wiki.archlinux.org/index.php/Zsh), [fzf](https://wiki.archlinux.org/index.php/Fzf), [tmux](https://wiki.archlinux.org/index.php/Tmux), etc. See my [dotfiles](https://github.com/sarrost/dotfiles) for how I integrate the scripts.
 
+- [vifmsplittoggle](https://github.com/sarrost/scripts/blob/master/scripts/vifmsplittoggle?ts=2) - cycle toggle split in vifm
 - [vifmimg](https://github.com/sarrost/scripts/blob/master/scripts/vifmimg?ts=2) - use ueberzug to draw images in vifm
 - [screenkeytoggle](https://github.com/sarrost/scripts/blob/master/scripts/screenkeytoggle?ts=2) - toggle screenkey
 - [ffmgif](https://github.com/sarrost/scripts/blob/master/scripts/ffmgif?ts=2) - convert video to gif
-- [tordone](https://github.com/sarrost/scripts/blob/master/scripts/torrentcomplete?ts=2) - send notification upon torrent completion
-- [vifmsplittoggle](https://github.com/sarrost/scripts/blob/master/scripts/vifmsplittoggle?ts=2) - cycle toggle split in vifm
+- [torrentcomplete](https://github.com/sarrost/scripts/blob/master/scripts/torrentcomplete?ts=2) - send notification when torrent is finished
 - [testpath](https://github.com/sarrost/scripts/blob/master/scripts/testpath?ts=2) - check if containing dir is in `$PATH`
+- [volumewrap](https://github.com/sarrost/scripts/blob/master/scripts/volumewrap?ts=2) - manipulate system volume
+- [backlightwrap](https://github.com/sarrost/scripts/blob/master/scripts/backlightwrap?ts=2) - adjust backlight brightness 
 - [deci](https://github.com/sarrost/scripts/blob/master/scripts/deci?ts=2) - sensibly print float with two decimal points
+- [vifmsplittoggle](https://github.com/sarrost/scripts/blob/master/scripts/vpwd?ts=2) - cycle toggle split in vifm
 - [keyboardtoggle](https://github.com/sarrost/scripts/blob/master/scripts/keyboardtoggle?ts=2) - toggle laptop keyboard
 - [taste](https://github.com/sarrost/scripts/blob/master/scripts/taste?ts=2) - preview files with default programs
 - [vs](https://github.com/sarrost/scripts/blob/master/scripts/vs?ts=2) - quickly create and edit script
 - [systray](https://github.com/sarrost/scripts/blob/master/scripts/systray?ts=2) - wrapper for stalonetray
 - [dockerpurge](https://github.com/sarrost/scripts/blob/master/scripts/dockerpurge?ts=2) - purge all docker images/containers
 - [genshortcuts](https://github.com/sarrost/scripts/blob/master/scripts/genshortcuts?ts=2) - generate dir shortcuts
-- [emoji-rofi](https://github.com/sarrost/scripts/blob/master/scripts/rofi-apps/emoji-rofi?ts=2) - select emoji and copy to clipboard
-- [screenshot](https://github.com/sarrost/scripts/blob/master/scripts/screenshot?ts=2) - a wrapper for scrot
+- [screenshot](https://github.com/sarrost/scripts/blob/master/scripts/screenshot?ts=2) - take screenshots
 - [backup](https://github.com/sarrost/scripts/blob/master/scripts/backup?ts=2) - backup a file
 - [torrentadd](https://github.com/sarrost/scripts/blob/master/scripts/torrentadd?ts=2) - add and start torrent
 - [termcolortable](https://github.com/sarrost/scripts/blob/master/scripts/termcolortable?ts=2) - print color codes in table
-- [yt-split](https://github.com/sarrost/scripts/blob/master/scripts/video-editing/yt-split?ts=2) - split audio and video
-- [yt-merge](https://github.com/sarrost/scripts/blob/master/scripts/video-editing/yt-merge?ts=2) - merge video and audio back together
 - [def](https://github.com/sarrost/scripts/blob/master/scripts/def?ts=2) - search up word in dictionary
 - [devour](https://github.com/sarrost/scripts/blob/master/scripts/devour?ts=2) - open files with default programs
 - [remapkeys](https://github.com/sarrost/scripts/blob/master/scripts/remapkeys?ts=2) - ramap certain keys
 - [tmuxcustomconf](https://github.com/sarrost/scripts/blob/master/scripts/tmuxcustomconf?ts=2) - set custom tmux conf location
 - [cf](https://github.com/sarrost/scripts/blob/master/scripts/cf?ts=2) - quickly access files
 - [pwdclipboard](https://github.com/sarrost/scripts/blob/master/scripts/pwdclipboard?ts=2) - copy the working dir to the clipboard
+- [mpcvolumewrap](https://github.com/sarrost/scripts/blob/master/scripts/mpcvolumewrap?ts=2) - manipulate system volume
 - [up](https://github.com/sarrost/scripts/blob/master/scripts/up?ts=2) - quickly update system packages
 - [maketex](https://github.com/sarrost/scripts/blob/master/scripts/maketex?ts=2) - quickly compile LaTeX pdf
 - [vifmrun](https://github.com/sarrost/scripts/blob/master/scripts/vifmrun?ts=2) - run vifm with ueberzug integration
 - [setwallpaper](https://github.com/sarrost/scripts/blob/master/scripts/setwallpaper?ts=2) - set the desktop background
 - [genscriptsumm](https://github.com/sarrost/scripts/blob/master/scripts/genscriptsumm?ts=2) - print script summaries for `README.md`
 - [termcolor256](https://github.com/sarrost/scripts/blob/master/scripts/termcolor256?ts=2) - print 256 terminal colors
+- [statusbar_cpuusage](https://github.com/sarrost/scripts/blob/master/scripts/statusbar_modules/statusbar_cpuusage?ts=2) - print the cpu usage for all cores
+- [vid_merge](https://github.com/sarrost/scripts/blob/master/scripts/video_editing/vid_merge?ts=2) - merge video and audio back together
+- [vid_split](https://github.com/sarrost/scripts/blob/master/scripts/video_editing/vid_split?ts=2) - split audio and video
+- [statusbar_batstatus](https://github.com/sarrost/scripts/blob/master/scripts/statusbar_modules/statusbar_batstatus?ts=2) - print battery status as icon
+- [statusbar_clock](https://github.com/sarrost/scripts/blob/master/scripts/statusbar_modules/statusbar_clock?ts=2) - print the current time
+- [statusbar_today](https://github.com/sarrost/scripts/blob/master/scripts/statusbar_modules/statusbar_today?ts=2) - print the current date
+- [statusbar_memavail](https://github.com/sarrost/scripts/blob/master/scripts/statusbar_modules/statusbar_memavail?ts=2) - print available memory
+- [statusbar_backlight](https://github.com/sarrost/scripts/blob/master/scripts/statusbar_modules/statusbar_backlight?ts=2) - print backlight level
+- [statusbar_memused](https://github.com/sarrost/scripts/blob/master/scripts/statusbar_modules/statusbar_memused?ts=2) - print current memory usage
+- [statusbar_volume](https://github.com/sarrost/scripts/blob/master/scripts/statusbar_modules/statusbar_volume?ts=2) - print the system volume level
+- [statusbar_batcapacity](https://github.com/sarrost/scripts/blob/master/scripts/statusbar_modules/statusbar_batcapacity?ts=2) - print the current battery capacity 
+- [emoji-rofi](https://github.com/sarrost/scripts/blob/master/scripts/rofi_apps/rofi_emoji?ts=2) - select emoji and copy to clipboard
 
 ## Why not use `.local/bin`?
 

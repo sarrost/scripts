@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# TODO
 record_dir="$XDG_VIDEOS_DIR/Herbert"
 
 updatestatus() { \

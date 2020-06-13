@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# TODO
 # This script is a rofi version of `passmenu`. It allows the user to
 # select a password to copy to the clipboard through a rofi -dmenu.
 #

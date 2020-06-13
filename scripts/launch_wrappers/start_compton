@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# TODO
 # This script is a wrapper to launch compton without worry of existing
 # instances.
 

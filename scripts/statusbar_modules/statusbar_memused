@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#〖愛〗statusbar_memused - print current memory usage
+
 # This script prints the current used memory (in GiB) to
 # stdout.
 
@@ -10,4 +12,4 @@ used=`echo "$t - $f" | bc | \
 	awk '{ printf "%.2f", $1/1024/1024 }'
 `
 
-printf "$used"
+printf " $used 〛"

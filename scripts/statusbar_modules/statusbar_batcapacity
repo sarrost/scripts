@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# This script prints the current battery capacity to
-# stdout.
+#〖愛〗statusbar_batcapacity - print the current battery capacity 
 
 capacity="`cat /sys/class/power_supply/BAT1/capacity`"
 
@@ -16,4 +15,4 @@ elif [ "$capacity" -lt 10 ]; then
 	symbol=""
 fi
 
-printf "$capacity $symbol"
+printf "$capacity $symbol 〛"
