@@ -2,6 +2,13 @@
 
 #〖愛〗statusbar_cpuusage - print the cpu usage for all cores
 
+# Usage:
+#   statusbar_cpuusage INTERVAL
+
+# - INTERVAL
+#   The inverval of time over which the usage is measured (
+#		in seconds). For example, 0.2.
+
 interval="$1"
 num_cores=`grep -P 'cpu' /proc/stat | wc -l`
 
