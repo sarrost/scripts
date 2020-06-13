@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# TODO
+#〖愛〗start_protonmail - restart protonmail
+
 sleep 5
 protonmail-bridge --no-window & disown
 notify-send "✓ protonmail-bridge" "Protonmail successfully launched."

@@ -1,5 +1,6 @@
-#! /bin/sh
+#!/bin/sh
 
-# TODO
+#〖愛〗start_dwm - restart dwm
+
 pkill -1 dwm
 notify-send "dwm" "WM successfully reloaded."

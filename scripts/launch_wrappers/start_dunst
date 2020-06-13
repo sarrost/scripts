@@ -1,6 +1,7 @@
-#! /bin/sh
+#!/bin/sh
 
-# TODO
+#〖愛〗start_dunst - restart dunst
+
 killall -q dunst
 dunst & disown
 notify-send "✓ Dunst" "Notification daemon successfully launched."
