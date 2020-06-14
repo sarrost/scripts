@@ -1,0 +1,38 @@
+#!/bin/sh
+
+#〖愛〗cf - quickly access files
+
+# Runs `fzf` on $XDG_CONFIG_HOME/cf and opens the selected 
+# file in the text editor. Be sure to create the dir and
+# populate it with symbolic links to the files/dirs you
+# want quick access to.
+
+cf_dir="${XDG_CONFIG_HOME}cf"
+
+# This script's filename (for use in output)
+script_name=${0##*\/}
+
+# Some colors
+COLOR1='\033[0;31m' # Standard RED
+NC='\033[0m' # No Color
+
+# Housekeep
+cf_err() {
+	>&2 echo -e \
+	"${COLOR1}${script_name}${NC}: ${COLOR1}error${NC}:"\
+	"'${COLOR1}\$XDG_CONFIG_HOME/cf${NC}'"\
+	"does not exist."
+}
+editor_err() {
+	>&2 echo -e \
+	"${COLOR1}${script_name}${NC}: ${COLOR1}error${NC}:"\
+	"Please set the '${COLOR1}\$EDITOR${NC}'"\
+	"environment variable."
+}
+[ -z "$cf_dir" ] && cf_err && exit 1
+[ -z "$EDITOR" ] && editor_err && exit 1
+
+# The job
+f=`rg --files --hidden --follow "${XDG_CONFIG_HOME}cf" | fzf`
+
+printf "$f"
