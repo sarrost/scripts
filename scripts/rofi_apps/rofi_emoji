@@ -2,14 +2,25 @@
 
 #〖愛〗emoji-rofi - select emoji and copy to clipboard
 
+# Please see my dotfiles for my version of the file 
 file="${XDG_DATA_HOME:-$HOME/.local/share}/rofi_emoji/emoji"
+# Each line must be of the format:
+#   <emoji> <name>; U+<codepoint>
+# For example:
+#   😀 grinning face; U+1F600
 
 # Housekeep
-err() { 
+err_file() { 
+	printf "Error: Emoji file not found.\n" 
+	exit 1
+}
+[ -f "$file" ] || err_file
+
+err_xsel() { 
 	printf "Error: xsel command not found. Please install xsel.\n" 
 	exit 1
 }
-xsel --version &>/dev/null || err
+xsel --version &>/dev/null || err_xsel
 
 # Get emojis
 chosen=`cut -d ';' -f1 $file | \
