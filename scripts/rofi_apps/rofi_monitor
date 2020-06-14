@@ -1,4 +1,0 @@
-#! /bin/sh
-
-# TODO
-$( ls ~/.local/bin/monitor-layouts/ | grep herbst.sh | rofi -dmenu -p "displays" )
