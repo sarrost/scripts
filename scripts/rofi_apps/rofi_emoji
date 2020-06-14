@@ -2,18 +2,22 @@
 
 #〖愛〗emoji-rofi - select emoji and copy to clipboard
 
+file="${XDG_DATA_HOME:-$HOME/.local/share}/rofi_emoji/emoji"
+
 # Housekeep
 err() { 
 	printf "Error: xsel command not found. Please install xsel.\n" 
+	exit 1
 }
-xsel --version &>/dev/null || err && exit 1
+xsel --version &>/dev/null || err
 
 # Get emojis
-chosen=`cut -d ';' -f1 ~/.local/share/emoji_rofi/emoji | \
+chosen=`cut -d ';' -f1 $file | \
 	rofi -dmenu -i -p emoji | \
 	sed "s/ .*//"
 `
 [ "$chosen" == "" ] && exit
 
+# Copy chosen emoji to clipboard
 echo "$chosen" | tr -d '\n' | xsel --clipboard
 notify-send "emoji" "'$chosen' copied to clipboard."
