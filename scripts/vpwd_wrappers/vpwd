@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#〖愛〗vpwd - set terminal virtual pwd
+
+# Usage:
+#   vpwd [DIR]
+
+# NOTE: There is no check for if the dir is valid.
+
+# Maintain state
+mkdir -p "/tmp/vpwd"
+file="/tmp/vpwd/term-${TERM_ID}"
+
+# Create file if it doesn't exist. Default pwd is current.
+[ ! -f "$file" ] && printf "${PWD}" > "$file"
+
+# Update vpwd if arg is passed.
+[ ! -z "$1" ] && printf "$1" > "$file"

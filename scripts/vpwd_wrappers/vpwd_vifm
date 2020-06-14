@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#〖愛〗vpwd_vifm - vi file manager
+
+# Usage:
+#   source vpwd_vifm [ARGS]
+
+# - ARGS
+#   see vifm(1)
+
+# vifmrun is itself another wrapper script
+vifmrun && \
+vpwd_dir=`</tmp/vpwd/term-${TERM_ID}` && \
+cd "$vpwd_dir"

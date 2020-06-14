@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#〖愛〗vpwd_cf - quickly access files
+
+# Usage:
+#   source vpwd_cf
+
+f="`cf_fzf`"
+
+# Edit file
+[ ! -z "$f" ] && $EDITOR "$f" 
+vpwd_dir=`</tmp/vpwd/term-${TERM_ID}` && \
+cd "$vpwd_dir"

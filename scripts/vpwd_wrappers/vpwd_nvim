@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#〖愛〗vpwd_nvim - edit files in nvim
+
+# Usage:
+#   source vpwd_nvim [ARGS]
+
+# - ARGS
+#   see nvim(1)
+
+nvim "$@" && \
+vpwd_dir=`</tmp/vpwd/term-${TERM_ID}` && \
+cd "$vpwd_dir"
