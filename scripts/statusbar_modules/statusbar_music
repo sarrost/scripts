@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#〖愛〗statusbar_music - print song details and music volume
+
+# REQUIRED: mpc 
+
+vol=`mpc volume`
+vol="${vol#* }"
+vol="${vol%\%}"
+
+icon=`mpc status | sed -n '2p'`
+icon=${icon#\[}
+icon=${icon%\]*}
+
+case $icon in
+	playing) icon='';;
+	paused) icon=''
+esac
+
+# Truncate song name if n chars or longer
+song="`mpc status -f '%title%' | sed -n '1p'`"
+n=21
+[ ${#song} -ge $n ] && 
+song="`echo $song | colrm $(( $n - 2 ))`..."
+
+printf "〚 $vol $icon $song 〛"
