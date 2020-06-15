@@ -4,7 +4,7 @@
 
 # Line 3 of all scripts must be in the same format of line 3
 # as this file. Example:
-#			#〖愛〗script - description
+#     #〖愛〗script - description
 
 # Housekeep
 err() {
@@ -16,7 +16,7 @@ err() {
 cd "$RICE_SCRIPTS_DIR"
 files="`rg --files .`"
 for f in $files; do
-	summary=`sed -n 's/#〖愛〗//g; 3p' $f`
+	summary=`sed -n 's/#〖愛〗//g; 3p' $f | sed '/TODO/d'`
 	link='https://github.com/sarrost/scripts/blob/master/'
 	link="$link`echo $f | sed 's/^./scripts/g'`?ts=2"
 	str="- [${summary% - *}]($link) - ${summary#* - }"
