@@ -1,6 +1,8 @@
 #!/bin/sh
 
-#〖愛〗emoji-rofi - select emoji and copy to clipboard
+#〖愛〗rofi_emoji - select emoji and copy to clipboard
+
+# REQUIRED: rofi
 
 # Please see my dotfiles for my version of the file 
 file="${XDG_DATA_HOME:-$HOME/.local/share}/rofi_emoji/emoji"
