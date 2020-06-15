@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#〖愛〗backlightwrap - adjust backlight brightness 
+
+# Usage:
+#   backlightwrap [args]
+
+# - args
+#   See xbacklight(1).
+
+xbacklight $*
+
+# Update dwmblocks
+pkill -RTMIN+7 dwmblocks
