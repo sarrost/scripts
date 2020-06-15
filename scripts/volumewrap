@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#〖愛〗volumewrap - manipulate system volume
+
+# Usage:
+#   volumewrap [inc|dec|min|max|toggle]
+
+case "$1" in
+	inc) pactl -- set-sink-volume 0 +10%;;
+	dec) pactl -- set-sink-volume 0 -10%;;
+	min) pactl -- set-sink-volume 0 0%;;
+	max) pactl -- set-sink-volume 0 100%;;
+	toggle) pactl list sinks | grep -q Mute:.no && \
+		pactl set-sink-mute 0 1 || pactl set-sink-mute 0 0;;
+esac
+
+# Update dwmblocks
+pkill -RTMIN+12 dwmblocks
