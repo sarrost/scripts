@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#〖愛〗screenshot - a wrapper for scrot
+#〖愛〗screenshot - take screenshots
 
 # Usage:
 #   screenshot [args]
@@ -8,11 +8,10 @@
 #	-	args
 #		See scrot(1).
 
-# REQUIRED: Set $RICE_SCREENSHOT_DIR var, it is the dir
-#	          where all screenshots are saved.
-
 $( scrot '%Y%m%d-%H%M%S-$wx$h.png' \
-	-e "mv \$f $RICE_SCREENSHOT_DIR" \
+	-e "mv \$f ${RICE_SCREENSHOT_DIR:-${XDG_PICTURES_DIR:-$HOME}}" \
 	--quality 100 \
 	--silent \
-	$* ) & disown
+	$* && \
+	notify-send "📸 Scrot" "screenshot saved"
+) & disown
