@@ -2,8 +2,8 @@
 
 #〖愛〗statusbar_today - print the current date
 
-ymd=`date "+%Y年%m月%d日"`
+md=`date "+%m月%d日"`
 weekday=`date "+%u" | \
 	sed 's/1/月/; s/2/火/;	s/3/水/;	s/4/木/;	s/5/金/;	s/6/土/; s/7/日/'`
 
-printf "〚 $ymd ($weekday) 〛"
+printf "〚 $weekday $md 〛"
