@@ -1,43 +1,49 @@
-#! /bin/sh
+#!/bin/sh
 
-# TODO
-# This script launches a `rofi` window used to mount devices to the 
-# `~/mnt` directory.
+#〖愛〗rofi_mount - mount usb devices
 
+# REQUIRED: rofi
+
+# Get mountable devices, quit if none found
 devices="$(
-    lsblk -rpo "name,type,size,mountpoint" | 
-    awk '!/sdb[1-6]/ && $2=="part"&&$4==""{printf "%s (%s)\n",$1,$3}'
+	lsblk -rpo "name,type,size,mountpoint" |
+	awk '!/sdb[1-6]/ && $2=="part"&&$4==""{printf "%s (%s)\n",$1,$3}'
 )"
+[ -z "$devices" ] && exit
 
-if [ -z "$devices" ]; then
-	exit 0
-else	
-    device=$(
-        echo $devices | 
-        rofi -dmenu -p "Choose device to mount:" | 
-        awk '{print $1}'
-    )
+# Pick device, quit if none selected
+device=$(
+	echo "$devices" |
+	rofi -dmenu -p "Choose device to mount:" |
+	awk '{print $1}'
+)
+[ -z "$device" ] && exit
 
-    if [ -z "$device" ]; then
-	    exit 0
-    else
-        dirs="$(
-            find $HOME/mnt -type d | 
-            awk '!/^\/home\/sarrost\/mnt$/ {split($0,a,"/"); printf "%s\n", a[5]}'
-        )"
-        dir=$(
-            echo $dirs |
-            rofi -sep ' ' -dmenu -p "Choose location to mount to:"
-        )
+# Find all mountable dirs in /mnt, quit if none available
+dirs="$(
+	find /mnt -maxdepth 1 ! -path /mnt -type d | sed "s/\/mnt\///"
+)"
+mounted=`mount | awk '/mnt/{print $3}'`
+while IFS= read -r d; do
+	while IFS= read -r m; do
+		[ "$m" = "/mnt/$d" ] && \
+		dirs=`echo "$dirs" | sed "/$d/d"`
+	done <<< "$mounted"
+done <<< "$dirs"
+[ -z "$dirs" ] && exit
 
-        if [ -z "$dir" ]; then
-	        exit 0
-        else
-            mp="$HOME/mnt/$dir"
-            mkdir "$mp"
-            sudo -A mount -o uid=1000,gid=985,umask=000 "$device" "$mp" && \
-            notify-send "USB mount" "Successfully mounted '$device' to '$dir'"
-        fi
-    fi
-fi
-exit 0
+# Pick dir to mount to, quit if none selected
+dir=$(
+	echo $dirs |
+	rofi -sep ' ' -dmenu -p "Choose location to mount to:"
+)
+[ -z "$dir" ] && exit
+
+# Mount and notify
+mp="/mnt/$dir"
+mkdir -p "$mp"
+sudo -A mount -o uid=1000,gid=985,fmask=117,dmask=007 \
+	"$device" "$mp" && \
+pkill -RTMIN+18 dwmblocks && \
+notify-send " USB mount" \
+	"successfully mounted <u><b>'$device'</b></u> to <u><b>'$dir'</b></u>"
