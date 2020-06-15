@@ -1,0 +1,16 @@
+#!/bin/sh
+
+#〖愛〗mpcvolumewrap - manipulate mpd volume
+
+# Usage:
+#   mpcvolumewrap [inc|dec|min|max]
+
+case "$1" in
+	inc) mpc volume +10 &>/dev/null;;
+	dec) mpc volume -10 &>/dev/null;;
+	min) mpc volume 0 &>/dev/null;;
+	max) mpc volume 100 &>/dev/null;;
+esac
+
+# Update dwmblocks
+pkill -RTMIN+17 dwmblocks
