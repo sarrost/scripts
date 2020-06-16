@@ -1,5 +1,6 @@
 #!/bin/sh
 
-#〖愛〗tordone - send notification upon torrent completion
+#〖愛〗torrentcomplete - send notification when torrent is finished
 
-notify-send "Transmission-daemon" "$TR_TORRENT_NAME has completed downloading."
+notify-send "Transmission-daemon" \
+"'<u><b>$TR_TORRENT_NAME</b></u>' has completed downloading."
