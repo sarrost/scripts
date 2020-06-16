@@ -2,7 +2,6 @@
 
 #〖愛〗start_transmission - restart transmission-daemon
 
-killall transmission-daemon &>/dev/null && (
-	transmission-daemon && 
-	notify-send " transmission" "torrent daemon launched."
-)
+killall -q transmission-daemon &>/dev/null 
+transmission-daemon && 
+notify-send " transmission" "torrent daemon launched."
