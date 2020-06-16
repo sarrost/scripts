@@ -1,38 +1,21 @@
 #!/bin/sh
 
-#〖愛〗cf - quickly access files
+#〖愛〗cf - quickly access files with fzf
 
-# Runs `fzf` on $XDG_CONFIG_HOME/cf and opens the selected 
-# file in the text editor. Be sure to create the dir and
-# populate it with symbolic links to the files/dirs you
-# want quick access to.
-
-cf_dir="${XDG_CONFIG_HOME}cf"
-
-# This script's filename (for use in output)
-script_name=${0##*\/}
-
-# Some colors
-COLOR1='\033[0;31m' # Standard RED
-NC='\033[0m' # No Color
+# Runs `fzf` on this dir
+cf_dir="${XDG_CONFIG_HOME:-$HOME/.config}cf"
+# Be sure to create the dir and populate it with symbolic 
+# links to the files/dirs you want quick access to.
 
 # Housekeep
-cf_err() {
-	>&2 echo -e \
-	"${COLOR1}${script_name}${NC}: ${COLOR1}error${NC}:"\
-	"'${COLOR1}\$XDG_CONFIG_HOME/cf${NC}'"\
-	"does not exist."
+err_cf() {
+	printf "Error: '\$XDG_CONFIG_HOME/cf' does not exist.\n"
+	exit 1
 }
-editor_err() {
-	>&2 echo -e \
-	"${COLOR1}${script_name}${NC}: ${COLOR1}error${NC}:"\
-	"Please set the '${COLOR1}\$EDITOR${NC}'"\
-	"environment variable."
-}
-[ -z "$cf_dir" ] && cf_err && exit 1
-[ -z "$EDITOR" ] && editor_err && exit 1
+[ -z "$cf_dir" ] && err_cf
 
 # The job
-f=`rg --files --hidden --follow "${XDG_CONFIG_HOME}cf" | fzf`
-
-printf "$f"
+escaped_cf_dir=$(echo $cf_dir | sed 's/\//\\\//g')
+f=`rg --files --hidden --follow "${XDG_CONFIG_HOME}cf" | \
+	sed "s/$escaped_cf_dir\///" | fzf`
+[ -z "$f" ] || printf "$cf_dir/$f"

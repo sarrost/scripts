@@ -2,6 +2,8 @@
 
 #〖愛〗cf - quickly access files
 
+# REQUIRED: cf_fzf (script)
+
 f="`cf_fzf`"
 
-[ ! -z "$f" ] && "$EDITOR" "$f"
+[ ! -z "$f" ] && "${EDITOR:-vim}" "$f"
