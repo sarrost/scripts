@@ -2,4 +2,4 @@
 
 packages=`pacman -Qu | grep -Fcv "[ignored]"`
 
-printf "〚 $packages  〛"
+printf "〚 $packages  〛"
