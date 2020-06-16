@@ -3,12 +3,14 @@
 #〖愛〗backlightwrap - adjust backlight brightness 
 
 # Usage:
-#   backlightwrap [args]
+#   backlightwrap [inc|dec|max|min]
 
-# - args
-#   See xbacklight(1).
-
-xbacklight $*
+case "$1" in
+	inc) xbacklight -inc 20;;
+	dec) xbacklight -dec 20;;
+	max) xbacklight -set 100;;
+	min) xbacklight -set 0;;
+esac
 
 # Update dwmblocks
 pkill -RTMIN+7 dwmblocks
