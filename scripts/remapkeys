@@ -2,10 +2,15 @@
 
 #〖愛〗remapkeys - ramap certain keys
 
+# REQUIRED: xcape
+
 # Remaps:
 #   L_CTRL <- SUPER
 #   CAPS <- ESC and CTRL
 #   ESC <- CAPS
+
+# Repeat keys faster when held down
+xset r rate 300 50
 
 # Without a delay keys don't remap for some reason.
 sleep 2
