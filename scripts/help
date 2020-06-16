@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#〖愛〗help - <~~>
+
+# Usage:
+#   help
+
+# - <~~>
+#   <~~>
+
+case "$1" in
+	sys) f="$SYSTEM_HELP_FILE";;
+	nvim) f="$NVIM_HELP_FILE";;
+	vifm) f="$VIFM_HELP_FILE";;
+esac
+
+$EDITOR "$f"
