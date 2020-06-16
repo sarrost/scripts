@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#〖愛〗dunsttoggle - toggle dunst
+
+# Usage:
+#   dunsttoggle
+
+# REQUIRED: dunst
+
+( killall dunst ) &>/dev/null && 
+notify-send " dunst" "off" &&
+exit
+
+dunst & disown &&
+notify-send " dunst" "on" 

@@ -14,7 +14,7 @@
 screen="${1:-0}"
 
 ( killall screenkey ) &>/dev/null && 
-notify-send "screenkey" "⌨ off" &&
+notify-send "⌨ screenkey" "off" &&
 exit
 
 screenkey \
@@ -24,4 +24,4 @@ screenkey \
 	--font "Hack" \
 	--scr "$screen" \
 	&>/dev/null & disown &&
-notify-send "screenkey" "⌨ on" 
+notify-send "⌨ screenkey" "on" 

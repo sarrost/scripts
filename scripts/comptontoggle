@@ -1,0 +1,16 @@
+#!/bin/sh
+
+#〖愛〗comptontoggle - toggle compton
+
+# Usage:
+#   comptontoggle
+
+# REQUIRED: compton
+
+( killall compton ) &>/dev/null && 
+notify-send "🕶 compton" "off" &&
+exit
+
+compton --config \
+	'/home/sarrost/.config/compton/compton.conf' & disown &&
+notify-send "🕶 compton" "on" 
