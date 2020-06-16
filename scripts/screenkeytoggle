@@ -5,9 +5,9 @@
 # Usage:
 #   screenkeytoggle [SCREEN]
 
-#	- SCREEN
-#		Specify a screen for the screenkey to appear on.
-#		If no arg is given then display 0 is used instead.
+# - SCREEN
+#   Specify a screen for the screenkey to appear on.
+#   If no arg is given then display 0 is used instead.
 
 # REQUIRED: screenkey
 
@@ -15,7 +15,7 @@ screen="$1"
 [ ! -z "$screen" ] || screen=0
 
 if ( killall screenkey ) &>/dev/null; then
-    notify-send "Screenkey" "⌨ Off"
+    notify-send "screenkey" "⌨ off"
 else
     screenkey \
 			--no-systray \
@@ -24,5 +24,5 @@ else
 			--font "Hack" \
 			--scr "$screen" \
 			&>/dev/null & disown && \
-    notify-send "Screenkey" "⌨ On" 
+    notify-send "screenkey" "⌨ on" 
 fi
