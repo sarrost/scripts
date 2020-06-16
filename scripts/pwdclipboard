@@ -3,11 +3,11 @@
 #〖愛〗pwdclipboard - copy the working dir to the clipboard
 
 # Usage:
-#		pwdclipboard [FILE]
+#   pwdclipboard [FILE]
 
 # - FILE
-#		if provided $PWD/FILE will be copied to clipboard 
-#		instead.
+#   if provided $PWD/FILE will be copied to clipboard 
+#   instead.
 
 # REQUIRED: xsel 
 
