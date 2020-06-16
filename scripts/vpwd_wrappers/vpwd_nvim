@@ -8,6 +8,8 @@
 # - ARGS
 #   see nvim(1)
 
+# REQUIRED: vpwd (script), nvim
+
 nvim "$@" && \
 vpwd_dir=`</tmp/vpwd/term-${TERM_ID}` && \
 cd "$vpwd_dir"

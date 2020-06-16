@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#〖愛〗vcd - <~~>
+
+# Usage:
+#   vcd
+
+# - <~~>
+#   <~~>
+
+vpwd_dir=`</tmp/vpwd/term-${TERM_ID}` &>/dev/null &&
+cd "$vpwd_dir"
