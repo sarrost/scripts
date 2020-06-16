@@ -11,18 +11,17 @@
 
 # REQUIRED: screenkey
 
-screen="$1"
-[ ! -z "$screen" ] || screen=0
+screen="${1:-0}"
 
-if ( killall screenkey ) &>/dev/null; then
-    notify-send "screenkey" "⌨ off"
-else
-    screenkey \
-			--no-systray \
-			-t 1 \
-			--font-color "#09e8a5" \
-			--font "Hack" \
-			--scr "$screen" \
-			&>/dev/null & disown && \
-    notify-send "screenkey" "⌨ on" 
-fi
+( killall screenkey ) &>/dev/null && 
+notify-send "screenkey" "⌨ off" &&
+exit
+
+screenkey \
+	--no-systray \
+	-t 1 \
+	--font-color "#09e8a5" \
+	--font "Hack" \
+	--scr "$screen" \
+	&>/dev/null & disown &&
+notify-send "screenkey" "⌨ on" 
