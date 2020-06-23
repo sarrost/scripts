@@ -1,0 +1,68 @@
+#!/bin/sh
+
+soy=$1
+album_data=album.txt
+track_data=tracks.txt
+file_data=files.txt
+
+err_nofile() {
+	printf "Error: One of the text files was not found.\n"
+	exit 1
+}
+([ -f $album_data ] && [ -f $track_data ] && [ -f $file_data ] ) || err_nofile
+
+n_album=$(wc -l "$album_data") 
+n_track=$(wc -l "$track_data")
+n_file=$(wc -l "$file_data")
+
+err_album() {
+	printf "Error: 'album.txt' incorrectly formatted.\n"
+	exit 1
+}
+err_track_file() {
+	printf "Error: 'tracks.txt' and 'files.txt' do not match.\n"
+	exit 1
+}
+# Album file must have exactly 5 lines
+[ "${n_album%% *}" -eq 5 ] || err_album
+# Must have the same number of lines
+[ "${n_track%% *}" -eq "${n_file%% *}" ] || err_track_file
+n="${n_track%% *}"
+
+# Get album data
+data=()
+while IFS= read -r line; do
+	data+=("$line")
+done < "$album_data"
+artist="${data[0]}"
+album="${data[1]}"
+tracks="${data[2]}"
+year="${data[3]}"
+genre="${data[4]}"
+
+# Get track data
+tracknames=()
+while IFS= read -r line; do
+	tracknames+=("$line")
+done < "$track_data"
+
+# Get file data
+filenames=()
+while IFS= read -r line; do
+	filenames+=("$line")
+done < "$file_data"
+
+for i in $( seq 0 $((n-1)) ); do
+	num=$((i + 1))
+	tag -a "$artist" -A "$album" -N "$n" -d "$year" -g "$genre" -t "${tracknames[$i]}" -n "$num" "${filenames[$i]}"
+	# Rename file
+	ext=${filenames[$i]##*.}
+	padded_num=$( printf "%02d\n" $((i + 1)) )
+	if [ -z "$soy" ]; then 
+		title="`echo ${tracknames[$i]} | tr -d '/'`"
+	else 
+		title=`soyname "${tracknames[$i]}"`
+	fi
+	new_filename="${padded_num}-${title}.$ext"
+	mv "${filenames[$i]}" "$new_filename"
+done

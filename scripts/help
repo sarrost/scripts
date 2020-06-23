@@ -10,8 +10,10 @@
 
 case "$1" in
 	sys) f="$SYSTEM_HELP_FILE";;
-	nvim) f="$NVIM_HELP_FILE";;
 	vifm) f="$VIFM_HELP_FILE";;
+	nvim) f="$NVIM_HELP_FILE";;
+	mutt) f="$XDG_CONFIG_HOME/mutt/help.mdox";;
+	# mutt) f="$MUTT_HELP_FILE";;
 esac
 
 $EDITOR "$f"

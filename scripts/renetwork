@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# TODO
+
+sudo systemctl restart NetworkManager &&
+notify-send " renetwork" "restarting network connection"
