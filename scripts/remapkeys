@@ -5,9 +5,13 @@
 # REQUIRED: xcape
 
 # Remaps:
+#		MENU <- SUPER
 #   L_CTRL <- SUPER
 #   CAPS <- ESC and CTRL
 #   ESC <- CAPS
+
+# Reset keys
+setxkbmap
 
 # Repeat keys faster when held down
 xset r rate 300 50
@@ -24,12 +28,13 @@ xmodmap -e "clear Control"
 xmodmap -e "keycode 66 = Control_R"
 # Set real Escape key to present as Caps Lock
 xmodmap -e "keycode 9 = Caps_Lock"
-# Make a fake key to hold the Escape keysym, so xcape can 
-# use it
+# Make a fake key to hold the Escape keysym, so xcape can use it
 xmodmap -e "keycode 255 = Escape"
 
 # Remove Hyper_L from Mod4 group
 xmodmap -e "remove Mod4 = Hyper_L"
+# Replace Menu with Super_R
+xmodmap -e "keycode 135 = Super_R"
 # Add (left) control to Mod4 group
 xmodmap -e "add Mod4 = Control_L"
 # Add (right) control to Control group
