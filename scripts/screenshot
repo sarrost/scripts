@@ -13,5 +13,5 @@ $( scrot '%Y%m%d-%H%M%S-$wx$h.png' \
 	--quality 100 \
 	--silent \
 	$* && \
-	notify-send "📸 Scrot" "screenshot saved"
+	notify-send "📸 scrot" "screenshot saved"
 ) & disown
