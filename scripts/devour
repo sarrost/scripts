@@ -5,29 +5,27 @@
 # Usage:
 #   devour FILE
 
-videos=()
-
 for f in "$@"; do
 	case "$f" in
 		# Video
 		*.3gp|*.avi|*.m4v|*.mkv|*.mov|*.mp4|*.mpeg|*.mpg|*.mts|*.ts|*.webm|*.wmv) 
-				videos+=("$f")
-				;;
+				videos+=("$f");;
 		# Audio
 		*.mp3|*.wav|*.flac|*.m4a|*.ogg|*.opus) 
-				/bin/sh -c "st -e mpv '$f'" &>/dev/null & disown
-				;;
+				music+=("$f");;
 		# Misc
 		*.pdf|*.djvu) 
-				zathura "$f" &>/dev/null & disown
-				;;
+				docs+=("$f");;
+		*.sc)
+				sheets+=("$f");;
+		*.o)
+				objects+=("$f");;
 		*) $EDITOR "$f"
 	esac
 done
 
-# if [ ! -z "$videos" ]; then
-# 	for f in ${videos[@]}; do
-# 		echo $f
-# 		# mpv "$*" &>/dev/null & disown;;
-# 	done
-# fi
+[ -z "$videos" ] || mpv "${videos[@]}"
+[ -z "$music" ] || mpv "${music[@]}"
+[ -z "$docs" ] || zathura "${docs[@]}"
+[ -z "$sheets" ] || sc-im "${sheets[@]}"
+[ -z "$objects" ] || nm "${objects[@]}" | $EDITOR -R
