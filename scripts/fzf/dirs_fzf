@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#〖愛〗dirs_fzf - select directory from fzf menu and print it
+
+# Usage:
+#   dirs_fzf [DIR]
+
+# REQUIRED: fd, fzf
+
+# - DIR
+#   Specify root directory to search from. Default is
+#   $PWD if not specified.
+
+OLD_FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_COMMAND="fd -t d . ${1:-$PWD}"
+fzf
+export FZF_DEFAULT_COMMAND="$OLD_FZF_DEFAULT_COMMAND"
