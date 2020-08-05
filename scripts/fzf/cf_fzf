@@ -1,6 +1,8 @@
 #!/bin/sh
 
-#〖愛〗cf - quickly access files with fzf
+#〖愛〗cf_fzf - select config/special file with fzf menu and print it
+
+# REQUIRED: fzf, rg
 
 # Runs `fzf` on this dir
 cf_dir="${XDG_CONFIG_HOME:-$HOME/.config}/cf"
@@ -16,6 +18,7 @@ err_cf() {
 
 # The job
 escaped_cf_dir=$(echo $cf_dir | sed 's/\//\\\//g')
-f=$(rg --files --hidden --follow "$cf_dir" | \
-	sed "s/$escaped_cf_dir\///" | fzf)
+f=$(rg --files --hidden --follow "$cf_dir" |
+	sed "s/$escaped_cf_dir\///" | fzf
+)
 [ -z "$f" ] || printf "$cf_dir/$f"
