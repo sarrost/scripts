@@ -1,23 +1,23 @@
 #!/bin/sh
 
-# TODO
-# This script is a rofi version of `passmenu`. It allows the user to
-# select a password to copy to the clipboard through a rofi -dmenu.
-#
+#〖愛〗rofi_pass - select a password from a rofi menu and copy it to the clipboard for a few seconds
+
 # Usage:
 #   pass_rofi
 
-passdir=".password-store"
-
 # select password
 password=$(
-    rg --files $HOME/$passdir | \
-    sed "s/\/home\/$(whoami)\/$passdir\///g; s/.gpg//g" | \
-    rofi -dmenu -p "pass"
+	rg --files "$PASSWORD_STORE_DIR" | \
+	sed 's,'"$PASSWORD_STORE_DIR/"',,g; s/.gpg//g' | \
+	rofi -dmenu -p "pass"
 )
 
 # copy password to clipboard
 if [ ! -z $password ]; then
-    pass $password | xsel --clipboard &>/dev/null && \
-    notify-send "Pass" "'$password' password copied to clipboard."
+	p=$(pass $password)
+	echo "$p" | xsel --clipboard &>/dev/null &&
+	notify-send " pass" "'$password' password copied to clipboard."
 fi
+
+# clear clipboard
+sleep 4 && echo "" | xsel --clipboard
