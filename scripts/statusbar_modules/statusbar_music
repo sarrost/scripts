@@ -4,14 +4,17 @@
 
 # REQUIRED: mpc 
 
+# TODO: handle stopped/empty playlist state
+
+# Get volume
 vol=`mpc volume`
 vol="${vol#* }"
 vol="${vol%\%}"
 
+# Get playing/paused icon
 icon=`mpc status | sed -n '2p'`
 icon=${icon#\[}
 icon=${icon%\]*}
-
 case $icon in
 	playing) icon='';;
 	paused) icon=''
