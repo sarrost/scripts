@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#〖愛〗genalbumtag - generate files for tagging albums
+
+printf "artist\nalbum\ntracks\nyear\ngenre\n" > a.txt
+ls | grep '.mp3$\|.flac$' > f.txt
+touch t.txt

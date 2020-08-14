@@ -1,28 +1,20 @@
 #!/bin/sh
 
-soy=$1
-album_data=album.txt
-track_data=tracks.txt
-file_data=files.txt
+#〖愛〗albumtag - tag albums
 
-err_nofile() {
-	printf "Error: One of the text files was not found.\n"
-	exit 1
-}
+album_data=a.txt
+track_data=t.txt
+file_data=f.txt
+
+err_nofile() { printf "Error: One of the text files was not found.\n" && exit 1 }
 ([ -f $album_data ] && [ -f $track_data ] && [ -f $file_data ] ) || err_nofile
 
 n_album=$(wc -l "$album_data") 
 n_track=$(wc -l "$track_data")
 n_file=$(wc -l "$file_data")
 
-err_album() {
-	printf "Error: 'album.txt' incorrectly formatted.\n"
-	exit 1
-}
-err_track_file() {
-	printf "Error: 'tracks.txt' and 'files.txt' do not match.\n"
-	exit 1
-}
+err_album() { printf "Error: 'album.txt' incorrectly formatted.\n" && exit 1 }
+err_track_file() { printf "Error: 'tracks.txt' and 'files.txt' do not match.\n" && exit 1 }
 # Album file must have exactly 5 lines
 [ "${n_album%% *}" -eq 5 ] || err_album
 # Must have the same number of lines
@@ -40,6 +32,8 @@ tracks="${data[2]}"
 year="${data[3]}"
 genre="${data[4]}"
 
+notify-send "🎵 albumtag" "Updating tags for <b><u>$album</u></b> album..."
+
 # Get track data
 tracknames=()
 while IFS= read -r line; do
@@ -52,17 +46,15 @@ while IFS= read -r line; do
 	filenames+=("$line")
 done < "$file_data"
 
+# Tag files
 for i in $( seq 0 $((n-1)) ); do
 	num=$((i + 1))
+	# Add metadata
 	tag -a "$artist" -A "$album" -N "$n" -d "$year" -g "$genre" -t "${tracknames[$i]}" -n "$num" "${filenames[$i]}"
-	# Rename file
-	ext=${filenames[$i]##*.}
-	padded_num=$( printf "%02d\n" $((i + 1)) )
-	if [ -z "$soy" ]; then 
-		title="`echo ${tracknames[$i]} | tr -d '/'`"
-	else 
-		title=`soyname "${tracknames[$i]}"`
-	fi
-	new_filename="${padded_num}-${title}.$ext"
-	mv "${filenames[$i]}" "$new_filename"
+	# Add cover image
+	[ -f cover.jpg ] && 
+		eyeD3 --remove-all-images "${filenames[$i]}" &&
+		eyeD3 --add-image cover.jpg:FRONT_COVER "${filenames[$i]}"
 done
+
+notify-send "🎵 albumtag" "Done updating tags for <b><u>$album</u></b> album."
