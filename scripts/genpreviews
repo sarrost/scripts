@@ -1,0 +1,30 @@
+#!/bin/sh
+
+#〖愛〗genpreviews - generate thumbnail previews for video and gif files.
+
+# Usage:
+#   genpreviews [DIR]
+
+# - DIR
+#   If not specified the current working directory is used.
+
+# Video files
+files=$(rg --files --hidden --no-follow "${1:-${PWD}}" | rg '.mkv$|.mp4$')
+if [ ! -z "$files" ]; then
+	while IFS= read -r file; do 
+		dir="${file%/*}"
+		[ -d "/tmp$dir" ] || mkdir -p "/tmp$dir"
+		ffmpegthumbnailer -i "$file" -o "/tmp$file.png" -s 0 -q 10 &>/dev/null
+	done <<<"$files"
+fi
+
+# Gif files
+files=$(rg --files --hidden --no-follow "${1:-${PWD}}" | rg '.gif$')
+if [ ! -z "$files" ]; then
+	while IFS= read -r file; do 
+		dir="${file%/*}"
+		[ -d "/tmp$dir" ] || mkdir -p "/tmp$dir"
+		cp "$file" "/tmp$dir" 
+		gif2png "/tmp$file" &>/dev/null && mv "/tmp${file%.gif}.png" "/tmp$file.png"
+	done <<<"$files"
+fi
