@@ -2,5 +2,5 @@
 
 #〖愛〗vid_split - split audio and video
 
-ffmpeg -i raw.mkv -vn -acodec copy out.flac 
-ffmpeg -i raw.mkv -c copy -an vid.mkv
+ffmpeg -i "${1:-raw.mp4}" -vn -acodec copy out.aac
+ffmpeg -i "${1:-raw.mp4}" -c copy -an vid.mp4

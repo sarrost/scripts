@@ -8,6 +8,11 @@
 f="`cf_fzf`"
 
 # Edit file
-[ -z "$f" ] || $EDITOR "$f" 
-vpwd_dir=`</tmp/vpwd/term-${TERM_ID}` && \
-cd "$vpwd_dir"
+editor="$EDITOR"
+command -v vpwd_nvim &>/dev/null && EDITOR="vpwd_nvim"
+[ -z "$f" ] || $EDITOR "$f"
+EDITOR="$editor"
+unset editor
+[ -f /tmp/vpwd/term-${TERM_ID} ] &&
+vpwd_dir=`</tmp/vpwd/term-${TERM_ID}` &&
+cd "$vpwd_dir" || true

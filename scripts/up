@@ -2,4 +2,7 @@
 
 #〖愛〗up - quickly update system packages
 
-yay -Syu --noconfirm
+emerge --update --deep --with-bdeps=y --newuse -q @world
+# TODO manually installed programs
+# TODO vim plugins
+# TODO coc plugins

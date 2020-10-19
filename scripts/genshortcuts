@@ -16,8 +16,10 @@
 dirs="$XDG_CONFIG_HOME/genshortcuts/dirsrc"
 
 # Output locations
-shell_shortcuts="$XDG_CONFIG_HOME/zsh/config/shortcuts.zsh"
-vifm_shortcuts="$XDG_CONFIG_HOME/vifm/config/shortcuts.vifm"
+shell_shortcuts="$XDG_DATA_HOME/zsh/shortcuts.zsh"
+vifm_shortcuts="$XDG_DATA_HOME/vifm/shortcuts.vifm"
+[ -d "$XDG_DATA_HOME/zsh" ] || mkdir -p "$XDG_DATA_HOME/zsh"
+[ -d "$XDG_DATA_HOME/vifm" ] || mkdir -p "$XDG_DATA_HOME/vifm"
 
 # Process args
 script_name=`basename $0`
@@ -84,19 +86,24 @@ echo "${prepared_kv}" \
 	| awk '{printf "nnoremap '"'"'%s :cd %s<CR>\n", $1, $2}' \
 	>> $vifm_shortcuts
 
-# Quick move command & mapping
+# Quick new tab and cd mapping
 echo "${prepared_kv}" \
-	| awk '{printf "command! mv%s :!mv %%f %s\n", $1, $2}' \
+	| awk '{printf "nnoremap t%s :tabnew<CR>:cd %s<CR>\n", $1, $2}' \
 	>> $vifm_shortcuts
+
+# Quick move command & mapping
+# echo "${prepared_kv}" \
+# 	| awk '{printf "command! mv%s :!mv %%f %s\n", $1, $2}' \
+# 	>> $vifm_shortcuts
 
 echo "${prepared_kv}" \
 	| awk '{printf "nnoremap mv%s :!mv %%f %s<CR>\n", $1, $2}' \
 	>> $vifm_shortcuts
 
 # Quick yank/put command & mapping
-echo "${prepared_kv}" \
-	| awk '{printf "command! yp%s :!cp %%f %s\n", $1, $2}' \
-	>> $vifm_shortcuts
+# echo "${prepared_kv}" \
+# 	| awk '{printf "command! yp%s :!cp %%f %s\n", $1, $2}' \
+# 	>> $vifm_shortcuts
 
 echo "${prepared_kv}" \
 	| awk '{printf "nnoremap yp%s :!cp %%f %s<CR>\n", $1, $2}' \

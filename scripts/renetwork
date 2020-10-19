@@ -2,5 +2,5 @@
 
 # TODO
 
-sudo systemctl restart NetworkManager &&
 notify-send " renetwork" "restarting network connection"
+doas rc-service NetworkManager restart

@@ -11,7 +11,10 @@
 # default image is found the program exits with status
 # code 1.
 
-verbose=true
+# REQUIRED: xwallpaper
+
+# TODO quiet arg flag
+verbose=false
 
 # Wallpaper dir and filename
 walldir="$XDG_CONFIG_HOME/setwallpaper"

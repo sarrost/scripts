@@ -2,4 +2,4 @@
 
 #〖愛〗vid_merge - merge video and audio back together
 
-ffmpeg -i vid.mkv -i out.mp3 -c copy merged.mkv
+ffmpeg -i vid.mp4 -i out.mp3 -c copy merged.mp4

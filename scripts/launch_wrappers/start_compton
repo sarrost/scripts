@@ -1,7 +1,0 @@
-#!/bin/sh
-
-#〖愛〗start_compton - restart compton
-
-killall -q compton
-compton --config /home/sarrost/.config/compton/compton.conf
-notify-send "✓ Compton" "Window compositor successfully launched."

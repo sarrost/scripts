@@ -6,12 +6,12 @@
 #   volumewrap [inc|dec|min|max|toggle]
 
 case "$1" in
-	inc) pactl -- set-sink-volume 0 +10%;;
-	dec) pactl -- set-sink-volume 0 -10%;;
-	min) pactl -- set-sink-volume 0 0%;;
-	max) pactl -- set-sink-volume 0 100%;;
+	inc) pactl -- set-sink-volume @DEFAULT_SINK@ +10%;;
+	dec) pactl -- set-sink-volume @DEFAULT_SINK@ -10%;;
+	min) pactl -- set-sink-volume @DEFAULT_SINK@ 0%;;
+	max) pactl -- set-sink-volume @DEFAULT_SINK@ 100%;;
 	toggle) pactl list sinks | grep -q Mute:.no && \
-		pactl set-sink-mute 0 1 || pactl set-sink-mute 0 0;;
+		pactl set-sink-mute @DEFAULT_SINK@ 1 || pactl set-sink-mute @DEFAULT_SINK@ 0;;
 esac
 
 # Update dwmblocks

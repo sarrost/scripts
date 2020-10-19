@@ -17,7 +17,7 @@ setxkbmap
 xset r rate 300 50
 
 # Without a delay keys don't remap for some reason.
-sleep 2
+sleep 1
 
 # Remove Caps_Lock modifier from real Caps Lock key
 xmodmap -e "clear Lock"

@@ -13,37 +13,28 @@ if [ -e "$FIFO_UEBERZUG" ]; then
 							[x]="$2" [y]="$3" [width]="$4" [height]="$5" \
 							[path]="${PWD}/$6") \
 			> "$FIFO_UEBERZUG"
-
 	elif [[ "$1" == "videopreview" ]]; then
-		echo -e "Loading preview...\nFile: $6"
 		[[ ! -d "/tmp${PWD}/$6/" ]] && mkdir -p "/tmp${PWD}/$6/"
 		[[ ! -f "/tmp${PWD}/$6.png" ]] && ffmpegthumbnailer -i "${PWD}/$6" -o "/tmp${PWD}/$6.png" -s 0 -q 10
 		declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
 							[x]="$2" [y]="$3" [width]="$4" [height]="$5" \
 							[path]="/tmp${PWD}/$6.png") \
 			> "$FIFO_UEBERZUG"
-
 	elif [[ "$1" == "gifpreview" ]]; then
-		echo -e "Loading preview..\nFile: $6"
-		[[ ! -d "/tmp${PWD}/$6/" ]] && mkdir -p "/tmp${PWD}/$6/" && convert -coalesce "${PWD}/$6" "/tmp${PWD}/$6/$6.png"
-		for frame in $(ls -1 /tmp${PWD}/$6/$6*.png | sort -V); do
-		   declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
-							[x]="$2" [y]="$3" [width]="$4" [height]="$5" \
-							[path]="$frame") \
-			> "$FIFO_UEBERZUG"
-			# Sleep between frames to make the animation smooth.
-			sleep .07
-		done
-
+		[[ ! -f "/tmp${PWD}/$6" ]] && mkdir -p "/tmp${PWD}" && 
+			cp "${PWD}/$6" "/tmp${PWD}" && cd "/tmp${PWD}" && 
+			gif2png "$6" &>/dev/null && mv "${6%.gif}.png" "$6.png"
+		declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
+			[x]="$2" [y]="$3" [width]="$4" [height]="$5" \
+			[path]="/tmp${PWD}/$6.png") \
+		> "$FIFO_UEBERZUG"
 	elif [[ "$1" == "pdfpreview" ]]; then
-		echo -e "Loading preview...\nFile: $6"
-		[[ ! -d "/tmp${PWD}/$6/" ]] && mkdir -p "/tmp${PWD}/$6/"
-		[[ ! -f "/tmp${PWD}/$6.jpg" ]] && pdftoppm -jpeg -singlefile "$6" "/tmp${PWD}/$6" & disown
+		[ ! -d "/tmp${PWD}/$6/" ] && mkdir -p "/tmp${PWD}/$6/"
+		[ ! -f "/tmp${PWD}/$6.jpg" ] && pdftoppm -jpeg -singlefile "$6" "/tmp${PWD}/$6" & disown
 		declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
 							[x]="$2" [y]="$3" [width]="$4" [height]="$5" \
 							[path]="/tmp${PWD}/$6.jpg") \
 			> "$FIFO_UEBERZUG"
-
 	elif [[ "$1" == "clear" ]]; then
 		declare -p -A cmd=([action]=remove [identifier]="$ID_PREVIEW") \
 			> "$FIFO_UEBERZUG"
