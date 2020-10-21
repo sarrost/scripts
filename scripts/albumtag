@@ -6,15 +6,15 @@ album_data=a.txt
 track_data=t.txt
 file_data=f.txt
 
-err_nofile() { printf "Error: One of the text files was not found.\n" && exit 1 }
+err_nofile() { printf "Error: One of the text files was not found.\n" && exit 1; }
 ([ -f $album_data ] && [ -f $track_data ] && [ -f $file_data ] ) || err_nofile
 
 n_album=$(wc -l "$album_data") 
 n_track=$(wc -l "$track_data")
 n_file=$(wc -l "$file_data")
 
-err_album() { printf "Error: 'album.txt' incorrectly formatted.\n" && exit 1 }
-err_track_file() { printf "Error: 'tracks.txt' and 'files.txt' do not match.\n" && exit 1 }
+err_album() { printf "Error: 'album.txt' incorrectly formatted.\n" && exit 1; }
+err_track_file() { printf "Error: 'tracks.txt' and 'files.txt' do not match.\n" && exit 1; }
 # Album file must have exactly 5 lines
 [ "${n_album%% *}" -eq 5 ] || err_album
 # Must have the same number of lines
@@ -46,15 +46,48 @@ while IFS= read -r line; do
 	filenames+=("$line")
 done < "$file_data"
 
+# TODO move to tag
+add_cover_art() {
+	ext="${1##*.}"
+	case "$ext" in 
+		opus) kid3-cli -c 'set picture:"" ""' "$1" &&
+			kid3-cli -c 'set picture:cover.jpg ""' "$1" ;;
+		mp3) eyeD3 --remove-all-images "${filenames[$i]}" &&
+			eyeD3 --add-image cover.jpg:FRONT_COVER "${filenames[$i]}" ;;
+	esac
+}
+
+friendly_name() {
+	# replace '/ \ | ? < > : " *' with a '_'
+	echo "$1" | sed -E -e 's/\/|\\|\||\?|<|>|:|"|\*/_/g'
+}
+
 # Tag files
 for i in $( seq 0 $((n-1)) ); do
 	num=$((i + 1))
 	# Add metadata
-	tag -a "$artist" -A "$album" -N "$n" -d "$year" -g "$genre" -t "${tracknames[$i]}" -n "$num" "${filenames[$i]}"
-	# Add cover image
-	[ -f cover.jpg ] && 
-		eyeD3 --remove-all-images "${filenames[$i]}" &&
-		eyeD3 --add-image cover.jpg:FRONT_COVER "${filenames[$i]}"
+	tag \
+		-a "$artist" \
+		-A "$album" \
+		-N "$n" \
+		-d "$year" \
+		-g "$genre" \
+		-t "${tracknames[$i]}" \
+		-n "$num" \
+		-i 'cover.jpg' \
+		"${filenames[$i]}"
+	# # Add cover image
+	# [ -f cover.jpg ] && add_cover_art "${filenames[$i]}"
+done
+
+# Rename files
+for i in $( seq 0 $((n-1)) ); do
+	num=$((i + 1))
+	# Add metadata
+	padded_i=$(printf '%0.2d' "$((i + 1))")
+	ext="${filenames[$i]##*.}"
+	new=$(friendly_name "${tracknames[$i]}")
+	mv "${filenames[$i]}" "$padded_i-$new.$ext" &>/dev/null
 done
 
 notify-send "🎵 albumtag" "Done updating tags for <b><u>$album</u></b> album."

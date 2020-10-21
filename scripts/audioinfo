@@ -1,0 +1,34 @@
+#!/bin/sh
+
+#〖愛〗audioinfo - print song info
+
+# Usage:
+#   audioinfo [FILE]
+
+# - FILE
+#   Must be an audio file. Will display track name, album, artist etc.
+
+# REQUIRED: mediainfo
+
+info=$(mediainfo "$1")
+
+artist=$(echo "$info" | grep --ignore-case -E 'performer +:' | head -1)
+artist=${artist#*: }
+album=$(echo "$info" | grep --ignore-case -E 'album +:' | head -1)
+album=${album#*: }
+genre=$(echo "$info" | grep --ignore-case -E 'genre +:' | head -1)
+genre=${genre#*: }
+date=$(echo "$info" | grep --ignore-case -E 'recorded date +:' | head -1)
+date=${date#*: }
+track=$(echo "$info" | grep --ignore-case -E 'track name +:' | head -1)
+track=${track#*: }
+pos=$(echo "$info" | grep --ignore-case -E 'position +:' | head -1)
+pos=${pos#*: }
+total=$(echo "$info" | grep --ignore-case -E 'total +:' | head -1)
+total=${total#*: }
+duration=$(echo "$info" | grep --ignore-case -E 'duration +:' | head -1 | sed 's/ min /:/; s/ s//')
+duration=${duration#*: }
+bit=$(echo "$info" | grep --ignore-case -E 'bit rate +:' | head -1)
+bit=${bit#*: }
+
+printf "$artist\n$album\n$genre\n$date\n$track\n$pos/$total\n$duration\n$bit\n"

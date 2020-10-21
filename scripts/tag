@@ -13,7 +13,7 @@ Options:
 	-c: comment
 You will be prompted for title, artist, album and track if not given." && exit 1 ;}
 
-while getopts "a:t:A:n:N:d:g:c:f:" o; do case "${o}" in
+while getopts "a:t:A:n:N:d:g:c:i:f:" o; do case "${o}" in
 	a) artist="${OPTARG}" ;;
 	t) title="${OPTARG}" ;;
 	A) album="${OPTARG}" ;;
@@ -22,6 +22,7 @@ while getopts "a:t:A:n:N:d:g:c:f:" o; do case "${o}" in
 	d) date="${OPTARG}" ;;
 	g) genre="${OPTARG}" ;;
 	c) comment="${OPTARG}" ;;
+	i) image="${OPTARG}" ;;
 	f) file="${OPTARG}" ;;
 	*) printf "Invalid option: -%s\\n" "$OPTARG" && err ;;
 esac done
@@ -46,14 +47,18 @@ Total=$total
 Date=$date
 Genre=$genre
 Comment=$comment" | vorbiscomment -w "$file" ;;
-	*.opus) echo "Title=$title
-Artist=$artist
-Album=$album
-Track=$track
-Total=$total
-Date=$date
-Genre=$genre
-Comment=$comment" | opustags -i -S "$file" ;;
+	*.opus) kid3-cli \
+		-c "set Artist '$artist'" "$file" \
+		-c "set Album '$album'" "$file" \
+		-c "set Track '$track'" "$file" \
+		-c "set Total '$total'" "$file" \
+		-c "set Date '$date'" "$file" \
+		-c "set Genre '$genre'" "$file" \
+		-c "set Comment '$comment'" "$file"
+		[ ! -z "$image" ] && [ -f "$image" ] &&
+			kid3-cli -c 'set picture:"" ""' "$file" &&
+			kid3-cli -c "set picture:'$image' ''" "$file"
+		;;
 	*.mp3) eyeD3 -Q --remove-all -a "$artist" -A "$album" -t "$title" -n "$track" -N "$total" -G "$genre" -Y "$date" "$file" ;;
 	*) echo "File type not implemented yet." ;;
 esac
