@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#〖愛〗cleanempty - remove empty files and directories
+
+# Usage:
+#   cleanempty [DIR]
+
+# - DIR
+#   Root dir to perform operations from
+
+find "${1:-$HOME}" -empty -delete &>/dev/null
+find "${1:-$HOME}" -xtype l -delete &>/dev/null
