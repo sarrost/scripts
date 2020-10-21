@@ -6,13 +6,19 @@
 
 # TODO: handle stopped/empty playlist state
 
+stat=`mpc status -f '%title%'`
+
+# Mpd is not running or playlist empty
+([ "$stat" = 'volume: n/a   repeat: off   random: off   single: off   consume: off' ] ||
+[ "$stat" = 'MPD error: Connection refused']) && printf '' && exit
+
 # Get volume
-vol=`mpc volume`
-vol="${vol#* }"
-vol="${vol%\%}"
+vol=`echo "$stat" | grep 'volume'`
+vol="${vol#volume:}"
+vol="${vol%%\%*}"
 
 # Get playing/paused icon
-icon=`mpc status | sed -n '2p'`
+icon=`echo "$stat" | sed -n '2p'`
 icon=${icon#\[}
 icon=${icon%\]*}
 case $icon in
@@ -21,7 +27,7 @@ case $icon in
 esac
 
 # Truncate song name if n chars or longer
-song="`mpc status -f '%title%' | sed -n '1p'`"
+song="`echo "$stat" | sed -n '1p'`"
 n=21
 [ ${#song} -ge $n ] && 
 song="`echo $song | colrm $(( $n - 2 ))`..."
