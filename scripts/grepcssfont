@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#〖愛〗grepcssfont - grep definition for web font and it's variants
+
+# Usage:
+#   grepcssfont FONT
+
+# - FONT
+#   Name of font located in fonts dir
+
+[ -z "$1" ] && exit 1
+f="$RICE_CSS_FONTS_DIR/fonts/$1"
+grep "$1" "$RICE_CSS_FONTS_DIR/fonts.css"

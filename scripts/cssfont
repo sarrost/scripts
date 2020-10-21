@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#〖愛〗cssfont - import web font into project and print css definition
+
+# Usage:
+#   cssfont FONT
+
+# - FONT
+#   Name of font located in fonts dir
+
+[ -z "$1" ] && exit 1
+f="$RICE_CSS_FONTS_DIR/fonts/$1"
+cp -r "$f" "../fonts/"
+grep "$1" "$RICE_CSS_FONTS_DIR/fonts.css"

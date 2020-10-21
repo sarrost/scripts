@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#〖愛〗gencssfont - generate css definitions for a web font and it's variants
+
+# Usage:
+#   gencssfont FONT
+
+# - FONT
+#   Name of font located in fonts dir
+
+([ "$1" = . ] || [ -z "$1" ]) && exit 1
+font="$1"
+files=`ls "$font" | grep '.woff' | sed 's/.woff//g'`
+font="${1%/}"
+font="${font##*/}"
+
+while IFS= read -r style; do
+	if [ "$style" = 'regular' ]; then
+		printf "@font-face { font-family: '${font}'; src: url('../fonts/${font}/${style}.woff') format('woff'); font-weight: normal; font-style: normal; }\n"
+	else
+		printf "@font-face { font-family: '${font}_${style}'; src: url('../fonts/${font}/${style}.woff') format('woff'); font-weight: normal; font-style: normal; }\n"
+	fi
+done <<< "$files"
