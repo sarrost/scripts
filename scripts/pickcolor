@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#〖愛〗pickcolor - pick color on screen and copy to clipboard
+
+# Usage:
+#   pickcolor
+
+notify-send " pickcolor" "ready"
+color=$(colorpicker --short --one-shot)
+echo "$color" | xclip -sel clip
+notify-send " pickcolor" "'$color' copied to clipboard."

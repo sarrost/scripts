@@ -1,0 +1,19 @@
+#!/bin/sh
+
+#〖愛〗uebernnn - prepare ueberzug environment for nnn instance
+
+# Source this before using ueberzug in nnn.
+
+fifo_dir=/tmp/.nnn
+
+[ -d "$fifo_dir" ] || mkdir -p "$fifo_dir"
+export FIFO_UEBERZUG="$fifo_dir/ueberzug-${PPID}"
+
+function cleanup {
+	rm "$FIFO_UEBERZUG" 2>/dev/null
+}
+
+rm "$FIFO_UEBERZUG" 2>/dev/null
+mkfifo "$FIFO_UEBERZUG"
+trap cleanup EXIT
+tail --follow "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash &

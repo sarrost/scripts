@@ -1,0 +1,27 @@
+#!/bin/sh
+
+#〖愛〗gennumseq - generate numbered sequence
+
+# Usage:
+#   gennumseq [START] END
+
+# - START
+#   Start point. If not specified then set to be 0.
+#
+# - END
+#   End point.
+
+err() { printf "Specify an endpoint.\n"; exit 1; }
+
+[ -z "$1" ] && err
+if [ -z "$2" ]; then
+	START=0 
+	END="$1"
+else
+	START="$1"
+	END="$2"
+fi
+
+for i in $( seq $START $END ); do
+	printf "%0${3:-2}d\n" "$i"
+done

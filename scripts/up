@@ -2,6 +2,7 @@
 
 #〖愛〗up - quickly update system packages
 
+emerge --sync
 emerge --update --deep --with-bdeps=y --newuse -q @world
 # TODO manually installed programs
 # TODO vim plugins

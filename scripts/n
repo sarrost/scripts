@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#〖愛〗n - nnn wrapper
+
+# REQUIRED: nn script
+
+# Source this script before calling n.
+
+[ -f "$RICE_SCRIPTS_DIR/nn" ] && 
+source "$RICE_SCRIPTS_DIR/nn" &&
+export N_ID=$PPID && nn "$@"

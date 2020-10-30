@@ -8,23 +8,24 @@
 # - DIR
 #   If not specified the current working directory is used.
 
+THUMB_DIR=/tmp/.thumbs
 # Video files
 files=$(rg --files --hidden --no-follow "${1:-${PWD}}" | rg '.mkv$|.mp4$')
 if [ ! -z "$files" ]; then
 	while IFS= read -r file; do 
 		dir="${file%/*}"
-		[ -d "/tmp$dir" ] || mkdir -p "/tmp$dir"
-		ffmpegthumbnailer -i "$file" -o "/tmp$file.png" -s 0 -q 10 &>/dev/null
+		[ -d "${THUMB_DIR}$dir" ] || mkdir -p "${THUMB_DIR}$dir"
+		ffmpegthumbnailer -i "$file" -o "${THUMB_DIR}$file.png" -s 0 -q 10 &>/dev/null
 	done <<<"$files"
 fi
 
-# Gif files
-files=$(rg --files --hidden --no-follow "${1:-${PWD}}" | rg '.gif$')
-if [ ! -z "$files" ]; then
-	while IFS= read -r file; do 
-		dir="${file%/*}"
-		[ -d "/tmp$dir" ] || mkdir -p "/tmp$dir"
-		cp "$file" "/tmp$dir" 
-		gif2png "/tmp$file" &>/dev/null && mv "/tmp${file%.gif}.png" "/tmp$file.png"
-	done <<<"$files"
-fi
+# # Gif files
+# files=$(rg --files --hidden --no-follow "${1:-${PWD}}" | rg '.gif$')
+# if [ ! -z "$files" ]; then
+# 	while IFS= read -r file; do 
+# 		dir="${file%/*}"
+# 		[ -d "${THUMB_DIR}$dir" ] || mkdir -p "${THUMB_DIR}$dir"
+# 		cp "$file" "${THUMB_DIR}$dir" 
+# 		gif2png "${THUMB_DIR}$file" &>/dev/null && mv "${THUMB_DIR}${file%.gif}.png" "${THUMB_DIR}$file.png"
+# 	done <<<"$files"
+# fi

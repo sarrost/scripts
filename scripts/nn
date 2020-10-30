@@ -1,0 +1,46 @@
+#!/bin/sh
+
+#〖愛〗nn - custom nnn launch environment
+
+# REQUIRED: nnn
+
+# Source this script before calling nn.
+
+nn() {
+	# file-type colors
+	export NNN_FCOLORS='c1e2312e006033f7c6d6abc4'
+	export NNN_PLUG='p:pwdclipboard-file-nnn;P:pwdclipboard-nnn;m:create-dir;e:edit-file;D:dot-nnn;s:setwallpaper-nnn;g:shortcuts-nnn;>:preview-pistol;'
+	fifo_dir=/tmp/.nnn
+	[ -d "$fifo_dir" ] || mkdir -p "$fifo_dir"
+	export NNN_FIFO="$fifo_dir/$N_ID.fifo"
+	export USE_PISTOL=1
+	# use trash-cli
+	export NNN_TRASH=1
+
+	# Block nesting of nnn in subshells
+	if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+		echo "nnn is already running"
+		return
+	fi
+
+	# cd on quit
+	export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+	# swap preview window
+	set +m
+	(
+		sleep 0.1
+		xdotool key super+space 
+	) &
+	nnn -P '>' -T 'v' "$@"
+	set -m
+
+	# cleanup
+	if [ -f "$NNN_TMPFILE" ]; then
+		. "$NNN_TMPFILE"
+		rm -f "$NNN_TMPFILE" > /dev/null
+	fi
+	# [ -f "$fifo_dir/$N_ID.fifo" ] && 
+	# 	rm -f "$fifo_dir/$N_ID.fifo" &>/dev/null
+	# echo $?
+}

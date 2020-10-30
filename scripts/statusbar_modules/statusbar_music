@@ -4,13 +4,14 @@
 
 # REQUIRED: mpc 
 
-# TODO: handle stopped/empty playlist state
-
 stat=`mpc status -f '%title%'`
 
 # Mpd is not running or playlist empty
-([ "$stat" = 'volume: n/a   repeat: off   random: off   single: off   consume: off' ] ||
-[ "$stat" = 'MPD error: Connection refused']) && printf '' && exit
+
+case "$stat" in
+	*n/a*) exit ;;
+esac
+[ -z "$stat" ] && exit
 
 # Get volume
 vol=`echo "$stat" | grep 'volume'`

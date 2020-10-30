@@ -1,0 +1,118 @@
+#!/bin/sh
+
+#〖愛〗ueberimg - preview media as image in terminal
+
+# Usage:
+#   ueberimg [FILE]
+
+# - FILE
+#   When not passed just clear terminal.
+
+rounddown() {
+	echo "${1%.*}"
+}
+
+if [ -z "$1" ]; then
+	declare -p -A cmd=([action]="remove" 
+		[identifier]="preview") > "$FIFO_UEBERZUG"
+else
+	file=$(readlink -f "$1")
+	dir=$(dirname "$file")
+	base=$(basename "$file")
+	thumb_dir="/tmp/.thumbs"
+
+	case "$file" in 
+		*.xcf) 
+			[ ! -d "${thumb_dir}$dir" ] && mkdir -p "${thumb_dir}$dir"
+			[ ! -f "${thumb_dir}$file.png" ] && 
+				convert -flatten "$file" "${thumb_dir}$file.png"
+			file="${thumb_dir}$file.png" ;;
+		*.pdf) 
+			[ ! -d "${thumb_dir}$dir" ] && mkdir -p "${thumb_dir}$dir"
+			[ ! -f "${thumb_dir}$file.jpg" ] && 
+				pdftoppm -jpeg -singlefile "$file" "${thumb_dir}$file"
+			file="${thumb_dir}$file.jpg" ;;
+		*.mp4|*.mpv)
+			[ ! -d "${thumb_dir}$dir" ] && mkdir -p "${thumb_dir}$dir"
+			[ ! -f "${thumb_dir}$file.png" ] && 
+				ffmpegthumbnailer -i "$file" -o "${thumb_dir}$file.png" -s 0 -q 10
+			file="${thumb_dir}$file.png" ;;
+	esac
+
+	# To center img, some math is needed.
+
+	win_info=$(xwininfo -id "$WINDOWID")
+
+	pixel_w=$(echo "$win_info" | grep "Width")
+	pixel_w=${pixel_w#*: }
+	pixel_h=$(echo "$win_info" | grep "Height")
+	pixel_h=${pixel_h#*: }
+
+	win_w=$(tput cols)
+	win_h=$(tput lines)
+	pixel_to_col=$(bc -l <<< "$win_w / $pixel_w" )
+	pixel_to_line=$(bc -l <<< "$win_h / $pixel_h" )
+
+	img_info=$(mediainfo "$file")
+
+	img_w=$(echo "$img_info" | grep "Width")
+	img_w=${img_w#*: }; img_w=${img_w% *}
+	img_w=$(echo "$img_w" | tr -d '[:space:]')
+
+	img_h=$(echo "$img_info" | grep "Height")
+	img_h=${img_h#*: }; img_h=${img_h% *}
+	img_h=$(echo "$img_h" | tr -d '[:space:]')
+
+	img_ratio=$(bc -l <<< "$img_w / $img_h")
+	win_ratio=$(bc -l <<< "$pixel_w / $pixel_h")
+
+	if ((`bc <<< "$img_ratio > $win_ratio"`)); then
+		# img is limited by width
+
+		# scale down image if bigger than window
+		if (($( bc <<< "$img_h > $pixel_h" ))); then
+			scale=$(bc -l <<< "$pixel_w / $img_w")
+			img_w=$(bc -l <<< "$img_w * $scale")
+			img_h=$(bc -l <<< "$img_h * $scale")
+		fi
+
+		img_w=$(bc -l  <<< "$img_w * $pixel_to_col")
+		img_h=$(bc -l <<< "$img_h * $pixel_to_line")
+		img_h=$(rounddown "$img_h")
+		img_w=$(rounddown "$img_w")
+
+		x=0
+		y=$(bc -l <<< "$win_h/2 - $img_h/2")
+		y=$(rounddown "$y")
+	else
+		# img is limited by height
+
+		# scale down image if bigger than window
+		if (($( bc <<< "$img_h > $pixel_h" ))); then
+			scale=$(bc -l <<< "$pixel_h / $img_h")
+			img_w=$(bc -l <<< "$img_w * $scale")
+			img_h=$(bc -l <<< "$img_h * $scale")
+		fi
+
+		img_w=$(bc -l  <<< "$img_w * $pixel_to_col")
+		img_h=$(bc -l <<< "$img_h * $pixel_to_line")
+		img_h=$(rounddown "$img_h")
+		img_w=$(rounddown "$img_w")
+
+		x=$(bc -l <<< "$win_w/2 - $img_w/2")
+		x=$(rounddown "$x")
+		y=0
+	fi
+
+	# draw img
+	declare -p -A cmd=(
+		[action]="add" 
+		[identifier]="preview" 
+		[x]="$x" 
+		[y]="$y" 
+		[width]="$win_w" 
+		[height]="$win_h" 
+		[scaler]="fit_contain" 
+		[path]="$file"
+	) > "$FIFO_UEBERZUG"
+fi

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#〖愛〗perms - recursively normalize permissions
+
+# Usage:
+#   perms [DIR]
+
+# - DIR
+#   When not specified operate on '.' dir.
+
+find "${1:-.}" -type d -exec chmod 755 {} +
+find "${1:-.}" -type f -exec chmod 644 {} +

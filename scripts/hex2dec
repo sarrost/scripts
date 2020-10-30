@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#〖愛〗hex2dec - convert a hex to decimal
+
+# Usage:
+#   hex2dec INT
+
+# - INT
+#   Must be in base 16.
+
+echo "obase=10; ibase=16; $1" | bc
