@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#〖愛〗statusbar_record - <~~>
+
+info=$(cat /tmp/.recording_status 2>/dev/null) 
+
+case "$info" in
+	screencast) icon="";;
+	video) icon="";;
+	audio) icon="";;
+	*) icon="" ;;
+esac
+
+[ -z "$icon" ] || printf "〚 $icon 〛"

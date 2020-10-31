@@ -1,6 +1,4 @@
 #!/bin/sh
 
-# TODO
-
 notify-send " renetwork" "restarting network connection"
 doas rc-service NetworkManager restart

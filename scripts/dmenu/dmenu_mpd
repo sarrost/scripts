@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # TODO
+# cleanup
 #when set to exit, mpd_control will exit if you press escape
 #when set to break, mpd_control will go the upper level if possible
 ESC_ACTION="break"
 # source configuration file for rofi if exists
 
-ROFI="rofi -dmenu -i -p 'Search:'"
+ROFI="dmenu"
 MPD_PORT=6600
 
 addaftercurrent(){
@@ -68,7 +69,6 @@ addaftercurrentandplay(){
 }
 
 case $1 in
-	
 	-a|--artist)
 	
 	while true; do
@@ -146,7 +146,6 @@ case $1 in
 	;;
 
 	-t|--track)
-		
 	TITLE=$(mpc -p 6600 list title | sort -f | $ROFI)
 	if [ "$TITLE" = "" ]; then exit; fi
 	
@@ -229,22 +228,13 @@ case $1 in
 		done
 	done
 	;;
-
 	-h|--help)
-	echo "-a, --artist		search for artist, then album, then title"
-    	echo "-t, --track		search for a single track in the whole database"
-	echo "-p, --playlist		search for a playlist load it"
-	echo "-j, --jump		jump to another song in the current playlist"		 
-	echo "-l, --longplayer	search for album, then title"
-	
-	
-	
-	
-	;;
-	
+		echo "-a, --artist		search for artist, then album, then title"
+		echo "-t, --track		search for a single track in the whole database"
+		echo "-p, --playlist		search for a playlist load it"
+		echo "-j, --jump		jump to another song in the current playlist"		 
+		echo "-l, --longplayer	search for album, then title" ;;
 	*)
-	echo "Usage: rofi-mpd [OPTION]"
-	echo "Try 'rofi-mpd --help' for more information."
-	;;
-
+		echo "Usage: rofi-mpd [OPTION]"
+		echo "Try 'rofi-mpd --help' for more information." ;;
 esac
