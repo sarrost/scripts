@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# TODO: doc
+#〖愛〗dmenu_record - record video/audio
 
 # Usage:
 # `$0`: Ask for recording type via dmenu

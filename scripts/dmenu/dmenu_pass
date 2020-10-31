@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#〖愛〗dmenupass - select a password from a rofi menu and copy it to the clipboard for a few seconds
+#〖愛〗dmenu_pass - select a password from a menu and copy it to the clipboard for a few seconds
 
 # Usage:
 #   dmenupass

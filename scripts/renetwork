@@ -1,4 +1,6 @@
 #!/bin/sh
 
+#〖愛〗renetwork - restart network
+
 notify-send " renetwork" "restarting network connection"
 doas rc-service NetworkManager restart

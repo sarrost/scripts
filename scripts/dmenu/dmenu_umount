@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#〖愛〗rofi_mount - unmount usb devices
+#〖愛〗dmenu_umount - unmount usb devices
 
 # REQUIRED: rofi
 

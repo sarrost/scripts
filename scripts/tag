@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#〖愛〗tag - add metadata to audio file
+
+# REQUIRED: kid3-cli
+# TODO: make all use kid3-cli
+
 err() { echo "Usage:
 	tag [OPTIONS] file
 Options:

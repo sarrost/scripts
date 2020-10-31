@@ -41,6 +41,7 @@ chmod +x -R ~/scripts/scripts
 
 Many of the scripts are designed to be used with other programs, such as [vim](https://wiki.archlinux.org/index.php/Vim), [vifm](https://wiki.archlinux.org/index.php/Vifm), [zsh](https://wiki.archlinux.org/index.php/Zsh), [fzf](https://wiki.archlinux.org/index.php/Fzf), [tmux](https://wiki.archlinux.org/index.php/Tmux), etc. See my [dotfiles](https://github.com/sarrost/dotfiles) for how I integrate the scripts.
 
+
 - [albumtag](https://github.com/sarrost/scripts/blob/master/scripts/albumtag?ts=2) - tag albums
 - [audioinfo](https://github.com/sarrost/scripts/blob/master/scripts/audioinfo?ts=2) - print song info
 - [backlightwrap](https://github.com/sarrost/scripts/blob/master/scripts/backlightwrap?ts=2) - adjust backlight brightness 
@@ -55,7 +56,12 @@ Many of the scripts are designed to be used with other programs, such as [vim](h
 - [def](https://github.com/sarrost/scripts/blob/master/scripts/def?ts=2) - search up word in dictionary
 - [devour](https://github.com/sarrost/scripts/blob/master/scripts/devour?ts=2) - open files with default programs
 - [dirs_fzf](https://github.com/sarrost/scripts/blob/master/scripts/fzf/dirs_fzf?ts=2) - select directory from fzf menu and print it
-- [dmenupass](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_pass?ts=2) - select a password from a rofi menu and copy it to the clipboard for a few seconds
+- [dmenu_emoji](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_emoji?ts=2) - select emoji and copy to clipboard
+- [dmenu_mount](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_mount?ts=2) - mount usb devices
+- [dmenu_mpd](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_mpd?ts=2) - play songs
+- [dmenu_pass](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_pass?ts=2) - select a password from a menu and copy it to the clipboard for a few seconds
+- [dmenu_record](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_record?ts=2) - record video/audio
+- [dmenu_umount](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_umount?ts=2) - unmount usb devices
 - [dockerpurge](https://github.com/sarrost/scripts/blob/master/scripts/dockerpurge?ts=2) - purge all docker images/containers
 - [dunsttoggle](https://github.com/sarrost/scripts/blob/master/scripts/dunsttoggle?ts=2) - toggle dunst
 - [ext](https://github.com/sarrost/scripts/blob/master/scripts/ext?ts=2) - extract files from archives
@@ -67,10 +73,10 @@ Many of the scripts are designed to be used with other programs, such as [vim](h
 - [genscriptsumm](https://github.com/sarrost/scripts/blob/master/scripts/genscriptsumm?ts=2) - print script summaries for `README.md`
 - [genshortcuts](https://github.com/sarrost/scripts/blob/master/scripts/genshortcuts?ts=2) - generate dir shortcuts
 - [grepcssfont](https://github.com/sarrost/scripts/blob/master/scripts/grepcssfont?ts=2) - grep definition for web font and it's variants
+- [help](https://github.com/sarrost/scripts/blob/master/scripts/help?ts=2) - quickly access help files in wiki
 - [hex2dec](https://github.com/sarrost/scripts/blob/master/scripts/hex2dec?ts=2) - convert a hex to decimal
 - [journal](https://github.com/sarrost/scripts/blob/master/scripts/journal?ts=2) - manage personal journal entries
 - [keyboardtoggle](https://github.com/sarrost/scripts/blob/master/scripts/keyboardtoggle?ts=2) - toggle laptop keyboard
-- [maketex](https://github.com/sarrost/scripts/blob/master/scripts/maketex?ts=2) - quickly compile LaTeX pdf
 - [mpcvolumewrap](https://github.com/sarrost/scripts/blob/master/scripts/mpcvolumewrap?ts=2) - manipulate mpd volume
 - [n](https://github.com/sarrost/scripts/blob/master/scripts/n?ts=2) - nnn wrapper
 - [nn](https://github.com/sarrost/scripts/blob/master/scripts/nn?ts=2) - custom nnn launch environment
@@ -78,9 +84,7 @@ Many of the scripts are designed to be used with other programs, such as [vim](h
 - [pickcolor](https://github.com/sarrost/scripts/blob/master/scripts/pickcolor?ts=2) - pick color on screen and copy to clipboard
 - [pwdclipboard](https://github.com/sarrost/scripts/blob/master/scripts/pwdclipboard?ts=2) - copy the working dir to the clipboard
 - [remapkeys](https://github.com/sarrost/scripts/blob/master/scripts/remapkeys?ts=2) - ramap certain keys
-- [rofi_emoji](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_emoji?ts=2) - select emoji and copy to clipboard
-- [rofi_mount](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_mount?ts=2) - mount usb devices
-- [rofi_mount](https://github.com/sarrost/scripts/blob/master/scripts/dmenu/dmenu_umount?ts=2) - unmount usb devices
+- [renetwork](https://github.com/sarrost/scripts/blob/master/scripts/renetwork?ts=2) - restart network
 - [screenkeytoggle](https://github.com/sarrost/scripts/blob/master/scripts/screenkeytoggle?ts=2) - toggle screenkey
 - [screenshot](https://github.com/sarrost/scripts/blob/master/scripts/screenshot?ts=2) - take screenshots
 - [setwallpaper](https://github.com/sarrost/scripts/blob/master/scripts/setwallpaper?ts=2) - set the desktop background
@@ -97,7 +101,7 @@ Many of the scripts are designed to be used with other programs, such as [vim](h
 - [statusbar_volume](https://github.com/sarrost/scripts/blob/master/scripts/statusbar/statusbar_volume?ts=2) - print the system volume level
 - [syncmail](https://github.com/sarrost/scripts/blob/master/scripts/syncmail?ts=2) - sync email
 - [systray](https://github.com/sarrost/scripts/blob/master/scripts/systray?ts=2) - wrapper for stalonetray
-- [taste](https://github.com/sarrost/scripts/blob/master/scripts/taste?ts=2) - preview files with default programs
+- [tag](https://github.com/sarrost/scripts/blob/master/scripts/tag?ts=2) - add metadata to audio file
 - [termcolor256](https://github.com/sarrost/scripts/blob/master/scripts/termcolor?ts=2) - print 256 terminal colors
 - [termcolortable](https://github.com/sarrost/scripts/blob/master/scripts/termcolortable?ts=2) - print color codes in table
 - [testpath](https://github.com/sarrost/scripts/blob/master/scripts/testpath?ts=2) - check if containing dir is in `$PATH`

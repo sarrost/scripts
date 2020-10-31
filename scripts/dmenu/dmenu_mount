@@ -1,8 +1,8 @@
 #!/bin/sh
 
-#〖愛〗rofi_mount - mount usb devices
+#〖愛〗dmenu_mount - mount usb devices
 
-# REQUIRED: rofi
+# REQUIRED: dmenu
 
 # Get mountable devices, quit if none found
 devices="$(

@@ -1,17 +1,15 @@
 #!/bin/sh
 
-#〖愛〗help - <~~>
+#〖愛〗help - quickly access help files in wiki
 
 # Usage:
-#   help
-
-# - <~~>
-#   <~~>
+#   help PROGRAM
 
 case "$1" in
 	sys) f="$SYSTEM_HELP_FILE";;
 	vifm) f="$VIFM_HELP_FILE";;
 	nvim) f="$NVIM_HELP_FILE";;
+	brave) f="$BRAVE_HELP_FILE";;
 	mutt) f="$XDG_CONFIG_HOME/mutt/help.mdox";;
 	# mutt) f="$MUTT_HELP_FILE";;
 esac

@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 #〖愛〗vid_split - split audio and video
 

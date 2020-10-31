@@ -5,6 +5,8 @@
 # Usage:
 #   pickcolor
 
+# REQUIRED: colorpicker
+
 notify-send " pickcolor" "ready"
 color=$(colorpicker --short --one-shot)
 echo "$color" | xclip -sel clip

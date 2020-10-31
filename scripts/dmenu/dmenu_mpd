@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#〖愛〗dmenu_mpd - play songs
+
 # TODO
 # cleanup
 #when set to exit, mpd_control will exit if you press escape
