@@ -2,8 +2,10 @@
 
 #〖愛〗up - quickly update system packages
 
-emerge --sync
-emerge --update --deep --with-bdeps=y --newuse -q @world
+eix-sync
+emerge --update --deep --newuse -q @world
 # TODO manually installed programs
 # TODO vim plugins
 # TODO coc plugins
+# TODO --no-sync option
+# TODO auto update portage if need be
